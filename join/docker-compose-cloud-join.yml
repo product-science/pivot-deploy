@@ -37,6 +37,13 @@ services:
       - VLLM_ASSETS_ROOT=/data/assets
     ports:
       - "8000:8000"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: [ "${DOCKER_GPU_IDS:-all}" ]
+              capabilities: [ gpu ]
     command: ["--model", "unsloth/llama-3-8b", "--enforce-eager"]
 
 volumes:
