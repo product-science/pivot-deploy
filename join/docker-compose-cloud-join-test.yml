@@ -25,19 +25,3 @@ services:
       - "8080:8080"
     volumes:
       - .inference:/root/.inference
-
-  inference-node:
-    image: gcr.io/decentralized-ai/vllm:0.5.0.post1
-    volumes:
-      - inference-data:/data
-    environment:
-      - HUGGING_FACE_HUB_TOKEN=${HUGGING_FACE_HUB_TOKEN}
-      - VLLM_LOGGING_LEVEL=INFO
-      - VLLM_CACHE_ROOT=/data/cache
-      - VLLM_ASSETS_ROOT=/data/assets
-    ports:
-      - "8000:8000"
-    command: ["--model", "unsloth/llama-3-8b", "--enforce-eager"]
-
-volumes:
-  inference-data:
