@@ -5,7 +5,7 @@ services:
     command: ["sh", "./init-docker.sh"]
     volumes:
       - .inference:/root/.inference
-      - ./${GENESIS_FILE}:/root/genesis.json
+      - ./${GENESIS_FILE}:/root/.inference/genesis.json
     environment:
       - SEEDS=${SEEDS}
       - KEY_NAME=${KEY_NAME}
