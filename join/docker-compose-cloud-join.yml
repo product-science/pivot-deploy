@@ -12,7 +12,6 @@ services:
     ports:
       - "26656:26656" #p2p
       - "26657:26657" #rpc
-    network_mode: "host"
   api:
     container_name: api
     image: 172.18.114.101:5556/decentralized-ai/api
@@ -27,7 +26,6 @@ services:
       - "${PORT}:8080"
     volumes:
       - .inference:/root/.inference
-    network_mode: "host"
 
   inference-node:
     image: 172.18.114.101:5556/decentralized-ai/mlnode:debug
@@ -50,7 +48,6 @@ services:
       uvicorn pow.app:app
       --host=0.0.0.0
       --port=8080
-    network_mode: "host"
 
 volumes:
   inference-data:
