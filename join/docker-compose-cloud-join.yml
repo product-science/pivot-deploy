@@ -1,7 +1,7 @@
 services:
   node:
     container_name: node
-    image: decentralized-ai/inferenced
+    image: gcr.io/decentralized-ai/inferenced
     command: ["sh", "./init-docker-genesis.sh"]
     volumes:
       - .inference:/root/.inference
@@ -12,7 +12,7 @@ services:
       - "26657:26657" #rpc
   api:
     container_name: api
-    image: decentralized-ai/api
+    image: gcr.io/decentralized-ai/api
     depends_on:
       - node
     environment:
@@ -25,7 +25,7 @@ services:
       - .inference:/root/.inference
 
   inference-node:
-    image: decentralized-ai/mlnode:debug
+    image: gcr.io/decentralized-ai/mlnode:debug
     ports:
       - "8000:8080"
       - "5000:5000"
