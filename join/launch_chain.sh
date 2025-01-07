@@ -92,6 +92,11 @@ echo "setting node config"
 # Set node config
 curl -X POST "http://0.0.0.0:$PORT/v1/nodes/batch" -H "Content-Type: application/json" -d @$NODE_CONFIG
 
+
+PUBLIC_URL="http://$PUBLIC_IP:$PORT"
+export PUBLIC_URL="http://$PUBLIC_IP:$PORT"
+echo "PUBLIC_URL=$PUBLIC_URL"
+
 if [ "$mode" == "local" ]; then
   node_container_name="$KEY_NAME-node"
 else
@@ -124,7 +129,6 @@ unique_models=$(jq '[.[] | .models[]] | unique' $NODE_CONFIG)
 # Print the unique models
 echo "Unique models: $unique_models"
 
-PUBLIC_URL="http://$PUBLIC_IP:$PORT"
 # Prepare the data structure for the final POST
 post_data=$(jq -n \
   --arg address "$address" \
