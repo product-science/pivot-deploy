@@ -31,8 +31,10 @@ services:
       - "5000:5000"
     volumes:
       - ./resources:/app/resources:r
+      - ./cache:/root/.cache
     environment:
       - MODEL_PARAMS_PATH=/app/resources/params.json
+      - HF_HOME=/root/.cache
     deploy:
       resources:
         reservations:
