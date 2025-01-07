@@ -1,9 +1,9 @@
 [
   {
     "id": "node1",
-    "host": "172.18.114.148",
-    "inference_port": 19008,
-    "poc_port": 19009,
+    "host": "inference-node",
+    "inference_port": 5000,
+    "poc_port": 8080,
     "max_concurrent": 500,
     "models": [
       "unsloth/llama-3-8b-Instruct"
