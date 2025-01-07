@@ -64,6 +64,10 @@ echo "SEED_ID=$SEED_ID"
 export SEEDS="$SEED_ID@$SEED_IP:26656"
 echo "SEEDS=$SEEDS"
 
+PUBLIC_URL="http://$PUBLIC_IP:$PORT"
+export PUBLIC_URL="http://$PUBLIC_IP:$PORT"
+echo "PUBLIC_URL=$PUBLIC_URL"
+
 if [ "$mode" == "local" ]; then
   project_name="$KEY_NAME"
 
@@ -91,11 +95,6 @@ sleep 20
 echo "setting node config"
 # Set node config
 curl -X POST "http://0.0.0.0:$PORT/v1/nodes/batch" -H "Content-Type: application/json" -d @$NODE_CONFIG
-
-
-PUBLIC_URL="http://$PUBLIC_IP:$PORT"
-export PUBLIC_URL="http://$PUBLIC_IP:$PORT"
-echo "PUBLIC_URL=$PUBLIC_URL"
 
 if [ "$mode" == "local" ]; then
   node_container_name="$KEY_NAME-node"
