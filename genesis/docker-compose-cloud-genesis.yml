@@ -27,9 +27,10 @@ services:
   inference-node:
     image: gcr.io/decentralized-ai/mlnode:debug
     volumes:
-      - ./resources:/app/resources:r
+      - ./cache:/root/.cache
     environment:
-      - MODEL_PARAMS_PATH=/app/resources/params.json
+      - HF_HOME=/root/.cache
+      - HF_HUB_ENABLE_HF_TRANSFER=true
     deploy:
       resources:
         reservations:
