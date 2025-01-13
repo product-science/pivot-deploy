@@ -4,12 +4,10 @@ services:
   node:
     container_name: node
     image: gcr.io/decentralized-ai/inferenced
-    command: ["sh", "./init-docker.sh"]
+    command: ["sh", "./init-docker-genesis.sh"]
     volumes:
       - .inference:/root/.inference
-      - ./${GENESIS_FILE}:/root/genesis.json
     environment:
-      - SEEDS=${SEEDS}
       - KEY_NAME=${KEY_NAME}
       - DAPI_API__PUBLIC_URL=${DAPI_API__PUBLIC_URL}
     ports:

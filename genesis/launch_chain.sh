@@ -12,7 +12,11 @@ if [ "$mode" == "local" ]; then
     compose_file="docker-compose-local.yml"
   fi
 elif [ "$mode" == "cloud" ]; then
-  compose_file="docker-compose-cloud-join.yml"
+  if [ "$KEY_NAME" == "genesis" ]; then
+    compose_file="docker-compose-cloud-genesis.yml"
+  else
+    compose_file="docker-compose-cloud-join.yml"
+  fi
 else
   echo "Unknown mode: $mode"
   exit 1
