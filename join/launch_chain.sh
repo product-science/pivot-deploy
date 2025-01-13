@@ -5,6 +5,20 @@ if [ -z "$mode" ]; then
   mode="local"
 fi
 
+# Verify parameters:
+# KEY_NAME - name of the key pair to use
+# NODE_CONFIG - name of a file with inference node configuration
+# SEED_IP - the ip of the seed node
+# PORT - the port to use for the API
+# PUBLIC_IP - the access point for getting to your API node from the public
+
+# Much easier to manage the environment variables in a file
+# Check if /config.env exists, then source it
+if [ -f config.env ]; then
+  echo "Souring config.env file..."
+  source config.env
+fi
+
 if [ "$mode" == "local" ]; then
   if [ "$KEY_NAME" == "genesis" ]; then
     compose_file="docker-compose-local-genesis.yml"
@@ -20,20 +34,6 @@ elif [ "$mode" == "cloud" ]; then
 else
   echo "Unknown mode: $mode"
   exit 1
-fi
-
-# Verify parameters:
-# KEY_NAME - name of the key pair to use
-# NODE_CONFIG - name of a file with inference node configuration
-# SEED_IP - the ip of the seed node
-# PORT - the port to use for the API
-# PUBLIC_IP - the access point for getting to your API node from the public
-
-# Much easier to manage the environment variables in a file
-# Check if /config.env exists, then source it
-if [ -f config.env ]; then
-  echo "Souring config.env file..."
-  source config.env
 fi
 
 if [ -z "$KEY_NAME" ]; then
