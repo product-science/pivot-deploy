@@ -110,27 +110,7 @@ fi
 sleep 20
 
 echo "setting node config"
-node_post_data=$(jq -n \
-  --arg id "wiremock" \
-  --arg host "$KEY_NAME-wiremock" \
-  --argjson inference_port 8080 \
-  --argjson poc_port 8080 \
-  --argjson max_concurrent 10 \
-  --argjson models '["unsloth/llama-3-8b-Instruct"]' \
-  '{
-    id: $id,
-    host: $host,
-    inference_port: $inference_port,
-    poc_port: $poc_port,
-    max_concurrent: $max_concurrent,
-    models: $models
-  }')
-echo "node data:"
-echo "$node_post_data"
-
-# Set node config
-#!!!
-curl -X POST "http://0.0.0.0:$PORT/v1/nodes" -H "Content-Type: application/json" -d "$node_post_data"
+curl -X POST "http://0.0.0.0:$PORT/v1/nodes/batch" -H "Content-Type: application/json" -d @$NODE_CONFIG
 
 if [ "$mode" == "local" ]; then
   node_container_name="$KEY_NAME-node"
