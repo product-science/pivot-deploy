@@ -17,11 +17,11 @@ services:
       - node
     environment:
       - KEY_NAME=${KEY_NAME}
-      - POC_CALLBACK_URL=${POC_CALLBACK_URL}
-      - PUBLIC_URL=${PUBLIC_URL}
+      - DAPI_API__POC_CALLBACK_URL=${DAPI_API__POC_CALLBACK_URL}
       - PORT=${PORT}
     ports:
       - "${PORT}:8080"
+    # It shares the volume with the node, because it needs access to the keyring
     volumes:
       - .inference:/root/.inference
 

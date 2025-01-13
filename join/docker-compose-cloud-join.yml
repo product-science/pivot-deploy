@@ -1,11 +1,13 @@
+version: "3.7"
+
 services:
   node:
     container_name: node
-    image: 172.18.114.101:5556/decentralized-ai/inferenced
+    image: gcr.io/decentralized-ai/inferenced
     command: ["sh", "./init-docker.sh"]
     volumes:
       - .inference:/root/.inference
-      - ./${GENESIS_FILE}:/root/.inference/genesis.json
+      - ./${GENESIS_FILE}:/root/genesis.json
     environment:
       - SEEDS=${SEEDS}
       - KEY_NAME=${KEY_NAME}
@@ -14,40 +16,14 @@ services:
       - "26657:26657" #rpc
   api:
     container_name: api
-    image: 172.18.114.101:5556/decentralized-ai/api
+    image: gcr.io/decentralized-ai/api
     depends_on:
       - node
     environment:
       - KEY_NAME=${KEY_NAME}
-      - POC_CALLBACK_URL=${POC_CALLBACK_URL}
-      - PUBLIC_URL=${PUBLIC_URL}
+      - DAPI_API__POC_CALLBACK_URL=${DAPI_API__POC_CALLBACK_URL}
       - PORT=${PORT}
     ports:
       - "${PORT}:8080"
     volumes:
       - .inference:/root/.inference
-
-  inference-node:
-    image: 172.18.114.101:5556/decentralized-ai/mlnode:debug
-    ports:
-      - "8000:8080"
-      - "5000:5000"
-    volumes:
-      - ./cache:/root/.cache
-    environment:
-      - HF_HOME=/root/.cache
-      - HF_HUB_ENABLE_HF_TRANSFER=true
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
-    command: >
-      uvicorn pow.app:app
-      --host=0.0.0.0
-      --port=8080
-
-volumes:
-  inference-data:
