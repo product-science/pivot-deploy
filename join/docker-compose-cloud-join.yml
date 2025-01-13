@@ -29,3 +29,28 @@ services:
       - "${PORT}:8080"
     volumes:
       - .inference:/root/.inference
+
+  inference-node:
+    image: 172.18.114.101:5556/decentralized-ai/mlnode:debug
+    ports:
+      - "8000:8080"
+      - "5000:5000"
+    volumes:
+      - ./cache:/root/.cache
+    environment:
+      - HF_HOME=/root/.cache
+      - HF_HUB_ENABLE_HF_TRANSFER=true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    command: >
+      uvicorn pow.app:app
+      --host=0.0.0.0
+      --port=8080
+
+volumes:
+  inference-data:
