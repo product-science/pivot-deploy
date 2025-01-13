@@ -101,8 +101,10 @@ docker compose -p "$project_name" -f "$compose_file" up -d
 
 # Copy the mappings to the wiremock container
 #!!!
-mkdir -p "./prod-local/wiremock/$KEY_NAME/mappings/"
-cp ./testermint/src/main/resources/mappings/*.json "./prod-local/wiremock/$KEY_NAME/mappings/"
+if [ "$mode" == "local" ]; then
+  mkdir -p "./prod-local/wiremock/$KEY_NAME/mappings/"
+  cp ./testermint/src/main/resources/mappings/*.json "./prod-local/wiremock/$KEY_NAME/mappings/"
+fi
 
 # Some time to join chain
 sleep 20
