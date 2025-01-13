@@ -176,7 +176,12 @@ else
     }')
 fi
 
-ADD_ENDPOINT="http://$EXTERNAL_SEED_IP:8080"
+if [ "$KEY_NAME" != "genesis" ]; then
+  ADD_ENDPOINT="http://$EXTERNAL_SEED_IP:8080"
+else
+  ADD_ENDPOINT="$DAPI_API__PUBLIC_URL"
+fi
+
 echo "POST request sent to $ADD_ENDPOINT with the following data:"
 echo "$post_data"
 
