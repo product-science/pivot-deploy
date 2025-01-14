@@ -32,7 +32,7 @@ services:
   inference-node:
     image: gcr.io/decentralized-ai/mlnode:debug
     volumes:
-      - ./cache:/root/.cache
+      - ${HOME}/cache:/root/.cache
     environment:
       - HF_HOME=/root/.cache
       - HF_HUB_ENABLE_HF_TRANSFER=true
