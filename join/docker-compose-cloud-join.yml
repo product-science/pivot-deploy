@@ -31,9 +31,6 @@ services:
 
   inference-node:
     image: 172.18.114.101:5556/decentralized-ai/mlnode:debug
-    ports:
-      - "8000:8080"
-      - "5000:5000"
     volumes:
       - ./cache:/root/.cache
     environment:
