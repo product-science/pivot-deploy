@@ -30,7 +30,7 @@ services:
       - "${PORT:-8080}:8080"
 
   inference-node:
-    image: 172.18.114.101:5556/decentralized-ai/mlnode:debug
+    image: gcr.io/decentralized-ai/mlnode:debug
     volumes:
       - ./cache:/root/.cache
     environment:
