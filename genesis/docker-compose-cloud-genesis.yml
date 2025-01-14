@@ -26,10 +26,9 @@ services:
       - NODE_CONFIG_PATH=/root/node_config.json
     ports:
       - "${PORT:-8080}:8080"
-    # It shares the volume with the node, because it needs access to the keyring
 
   inference-node:
-    image: 172.18.114.101:5556/decentralized-ai/mlnode:debug
+    image: gcr.io/decentralized-ai/mlnode:debug
     volumes:
       - ./cache:/root/.cache
     environment:

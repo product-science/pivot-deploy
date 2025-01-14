@@ -60,11 +60,11 @@ You can create an account with the following command:
 docker run -it --rm \
     -v $(pwd)/.inference:/root/.inference \
     -v $(pwd)/inference-requests:/root/inference-requests \
-    gcr.io/decentralized-ai/inferenced-join \
+    gcr.io/decentralized-ai/inferenced \
     inferenced \
     create-client \
     <account-name> \
-    --node-address http://34.72.225.168:8080
+    --node-address http://36.189.234.237:19212
 ```
 
 - Replace `<account-name>` with your desired account name.
@@ -108,12 +108,12 @@ Then, run the following command to make the inference request:
 docker run -it --rm \
     -v $(pwd)/.inference:/root/.inference \
     -v $(pwd)/inference-requests:/root/inference-requests \
-    gcr.io/decentralized-ai/inferenced-join \
+    gcr.io/decentralized-ai/inferenced \
     inferenced \
     signature \
     send-request \
     --account-address <account-address> \
-    --node-address http://34.72.225.168:8080 \
+    --node-address http://36.189.234.237:19212 \
     --file /root/inference-requests/request_payload.json
 ```
 
