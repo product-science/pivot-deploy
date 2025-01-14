@@ -28,6 +28,7 @@ services:
       - NODE_CONFIG_PATH=/root/node_config.json
     ports:
       - "${PORT:-8080}:8080"
+    restart: always
 
   inference-node:
     image: gcr.io/decentralized-ai/mlnode:debug
@@ -47,6 +48,7 @@ services:
       uvicorn pow.app:app
       --host=0.0.0.0
       --port=8080
+    restart: always
 
 volumes:
   inference-data:
