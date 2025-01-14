@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   node:
     container_name: node
@@ -9,24 +7,26 @@ services:
       - .inference:/root/.inference
     environment:
       - KEY_NAME=${KEY_NAME}
-      - DAPI_API__PUBLIC_URL=${DAPI_API__PUBLIC_URL}
     ports:
       - "26656:26656" #p2p
       - "26657:26657" #rpc
   api:
     container_name: api
     image: gcr.io/decentralized-ai/api
+    volumes:
+      - .inference:/root/.inference
+      - ./node-config.json:/root/node_config.json
     depends_on:
       - node
     environment:
       - KEY_NAME=${KEY_NAME}
-      - DAPI_API__POC_CALLBACK_URL=${DAPI_API__POC_CALLBACK_URL}
-      - DAPI_API__PUBLIC_URL=${DAPI_API__PUBLIC_URL}
-      - PORT=${PORT}
+      - DAPI_API__POC_CALLBACK_URL=http://api:8080
+      - DAPI_API__PUBLIC_URL=${PUBLIC_URL}
+      - DAPI_CHAIN_NODE__IS_GENESIS=true
+      - NODE_CONFIG_PATH=/root/node_config.json
     ports:
-      - "${PORT}:8080"
-    volumes:
-      - .inference:/root/.inference
+      - "${PORT:-8080}:8080"
+    # It shares the volume with the node, because it needs access to the keyring
 
   inference-node:
     image: 172.18.114.101:5556/decentralized-ai/mlnode:debug
