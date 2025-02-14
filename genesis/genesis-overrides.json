@@ -15,7 +15,7 @@
           "epochParams": {
             "epoch_length": "30000",
             "epoch_multiplier": "1",
-            "epoch_shift": "100",
+            "epoch_shift": "1900",
             "default_unit_of_compute_price": "100"
           }
         },
