@@ -5,7 +5,7 @@ services:
     command: ["sh", "./init-docker-genesis.sh"]
     volumes:
       - .inference:/root/.inference
-      - genesis-overrides.json:/root/genesis_overrides.json
+      - ./genesis-overrides.json:/root/genesis_overrides.json
     environment:
       - KEY_NAME=${KEY_NAME}
     ports:
