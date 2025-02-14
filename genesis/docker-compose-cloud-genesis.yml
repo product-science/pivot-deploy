@@ -16,6 +16,7 @@ services:
     volumes:
       - .inference:/root/.inference
       - ./node-config.json:/root/node_config.json
+      - ./genesis-overrides.json:/root/genesis_overrides.json
     depends_on:
       - node
     environment:
