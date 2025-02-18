@@ -8,6 +8,8 @@ services:
       - ./genesis-overrides.json:/root/genesis_overrides.json
     environment:
       - KEY_NAME=${KEY_NAME}
+      - SNAPSHOT_INTERVAL=${SNAPSHOT_INTERVAL:-1000} # how often create state snapshots
+      - SNAPSHOT_KEEP_RECENT=${SNAPSHOT_KEEP_RECENT:-5} # how many snapshots to keep
     ports:
       - "26656:26656" #p2p
       - "26657:26657" #rpc
