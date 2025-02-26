@@ -45,7 +45,7 @@ services:
               count: all
               capabilities: [gpu]
     command: >
-      uvicorn pow.app:app
+      uvicorn api.app:app
       --host=0.0.0.0
       --port=8080
     restart: always
