@@ -4,7 +4,8 @@ services:
     image: gcr.io/decentralized-ai/inferenced
     command: ["sh", "./init-docker-genesis.sh"]
     volumes:
-      - .inference-data:/root/.inference
+      - .inference:/root/.inference
+      - ./genesis-overrides.json:/root/genesis_overrides.json
     environment:
       - KEY_NAME=genesis
       - IS_GENESIS=true
@@ -15,22 +16,22 @@ services:
     container_name: api
     image: gcr.io/decentralized-ai/api
     volumes:
-      - .inference-data:/root/.inference
+      - .inference:/root/.inference
       - ./node-config.json:/root/node_config.json
     depends_on:
       - node
     environment:
       - KEY_NAME=genesis
       - DAPI_API__POC_CALLBACK_URL=http://api:8080
-      - DAPI_API__PUBLIC_URL=http://172.18.114.148:8000
+      - DAPI_API__PUBLIC_URL=${PUBLIC_URL}
       - IS_GENESIS=true
       - NODE_CONFIG_PATH=/root/node_config.json
     ports:
-      - "8000:8080"
+      - "${PORT:-8080}:8080"
     restart: always
 
   inference-node:
-    image: gcr.io/decentralized-ai/mlnode:3.0.0-alpha4
+    image: gcr.io/decentralized-ai/mlnode:latest
     volumes:
       - ${HOME}/cache:/root/.cache
     environment:
@@ -48,5 +49,3 @@ services:
       --host=0.0.0.0
       --port=8080
     restart: always
-volumes:
-  inference-data:
