@@ -1,0 +1,19 @@
+inference-node:
+  image: gcr.io/decentralized-ai/mlnode:3.0.0-alpha4
+  volumes:
+    - ${HOME}/cache:/root/.cache
+  environment:
+    - HF_HOME=/root/.cache
+    - HF_HUB_ENABLE_HF_TRANSFER=true
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia
+            count: all
+            capabilities: [gpu]
+  command: >
+    uvicorn pow.app:app
+    --host=0.0.0.0
+    --port=8080
+  restart: always
