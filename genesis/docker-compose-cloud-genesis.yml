@@ -4,7 +4,7 @@ services:
     image: gcr.io/decentralized-ai/inferenced
     command: ["sh", "./init-docker-genesis.sh"]
     volumes:
-      - .inference:/root/.inference
+      - .inference-data:/root/.inference
     environment:
       - KEY_NAME=genesis
       - IS_GENESIS=true
@@ -15,7 +15,7 @@ services:
     container_name: api
     image: gcr.io/decentralized-ai/api
     volumes:
-      - .inference:/root/.inference
+      - .inference-data:/root/.inference
       - ./node-config.json:/root/node_config.json
     depends_on:
       - node
