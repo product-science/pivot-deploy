@@ -6,6 +6,9 @@ services:
   environment:
     - HF_HOME=/root/.cache
     - HF_HUB_ENABLE_HF_TRANSFER=true
+  ports:
+    - "8081:8080" # PoC port
+    - "5000:5000" # inference port
   deploy:
     resources:
       reservations:
