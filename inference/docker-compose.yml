@@ -1,5 +1,5 @@
 services:
-inference-node:
+ inference-node:
   image: gcr.io/decentralized-ai/mlnode:debug
   volumes:
     - ${HOME}/cache:/root/.cache
