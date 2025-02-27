@@ -7,8 +7,7 @@ services:
       - .inference:/root/.inference
       - ./genesis-overrides.json:/root/genesis_overrides.json
     environment:
-      - KEY_NAME=genesis
-      - IS_GENESIS=true
+      - KEY_NAME=${KEY_NAME}
     ports:
       - "26656:26656" #p2p
       - "26657:26657" #rpc
@@ -21,7 +20,7 @@ services:
     depends_on:
       - node
     environment:
-      - KEY_NAME=genesis
+      - KEY_NAME=${KEY_NAME}
       - DAPI_API__POC_CALLBACK_URL=http://api:8080
       - DAPI_API__PUBLIC_URL=${PUBLIC_URL}
       - IS_GENESIS=true
