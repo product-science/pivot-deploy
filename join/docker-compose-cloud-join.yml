@@ -8,6 +8,10 @@ services:
     environment:
       - SEED_NODE_RPC_URL=${SEED_NODE_RPC_URL}
       - SEED_NODE_P2P_URL=${SEED_NODE_P2P_URL}
+      - SYNC_WITH_SNAPSHOTS=${SYNC_WITH_SNAPSHOTS} # sync using snapshots?
+      - RPC_SERVER_URL_2=${RPC_SERVER_URL_2}       # rpc-servers to get snapshots
+      - RPC_SERVER_URL_1=${RPC_SERVER_URL_1}
+      - TRUSTED_BLOCK_PERIOD=${TRUSTED_BLOCK_PERIOD:-2000} # num of blocks to return back from latest block to get the earliest trusted snapshot
       - KEY_NAME=${KEY_NAME}
     ports:
       - "26656:26656" #p2p
