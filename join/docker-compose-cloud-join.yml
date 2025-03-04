@@ -31,7 +31,7 @@ services:
       - DAPI_CHAIN_NODE__SEED_API_URL=${SEED_API_URL}
       - NODE_CONFIG_PATH=/root/node_config.json
     ports:
-      - "${PORT:-8000}:8000"
+      - "${PORT:-8000}:8080"
     restart: always
 
   inference-node:
