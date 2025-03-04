@@ -26,12 +26,12 @@ services:
       - node
     environment:
       - KEY_NAME=${KEY_NAME}
-      - DAPI_API__POC_CALLBACK_URL=http://api:8080
+      - DAPI_API__POC_CALLBACK_URL=${DAPI_API__POC_CALLBACK_URL}
       - DAPI_API__PUBLIC_URL=${PUBLIC_URL}
       - DAPI_CHAIN_NODE__SEED_API_URL=${SEED_API_URL}
       - NODE_CONFIG_PATH=/root/node_config.json
     ports:
-      - "${PORT:-8080}:8080"
+      - "${PORT:-8000}:8080"
     restart: always
 
   inference-node:
@@ -53,6 +53,3 @@ services:
       --host=0.0.0.0
       --port=8080
     restart: always
-
-volumes:
-  inference-data:
