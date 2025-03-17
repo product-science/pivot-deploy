@@ -35,7 +35,7 @@ services:
     restart: always
 
   inference-node:
-    image: 172.18.114.101:5556/decentralized-ai/mlnode:3.0.2-alpha1
+    image: 172.18.114.101:5556/decentralized-ai/mlnode:3.0.1-alpha1
     volumes:
       - ${HOME}/cache:/root/.cache
     environment:
