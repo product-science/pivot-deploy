@@ -1,7 +1,7 @@
 services:
   node:
     container_name: node
-    image: 172.18.114.101:5556/decentralized-ai/inferenced:0.0.1-alpha3
+    image: 172.18.114.101:5556/decentralized-ai/inferenced:${VERSION:-latest}
     command: ["sh", "./init-docker.sh"]
     volumes:
       - .inference:/root/.inference
@@ -18,7 +18,7 @@ services:
       - "26657:26657" #rpc
   api:
     container_name: api
-    image: 172.18.114.101:5556/decentralized-ai/api:0.0.1-alpha3
+    image: 172.18.114.101:5556/decentralized-ai/api:${VERSION:-latest}
     volumes:
       - .inference:/root/.inference
       - ./node-config.json:/root/node_config.json
