@@ -37,7 +37,7 @@ services:
       - ${HOME}/cache:/root/.cache
     environment:
       - HF_HOME=/root/.cache
-      - HF_HUB_ENABLE_HF_TRANSFER=true
+      #- HF_HUB_ENABLE_HF_TRANSFER=true
       - HF_TOKEN=${HF_TOKEN}
     deploy:
       resources:
