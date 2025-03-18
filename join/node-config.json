@@ -7,6 +7,12 @@
     "max_concurrent": 500,
     "models": [
       "unsloth/llama-3-8b-Instruct"
+    ],
+    "hardware": [
+      {
+        "type": "3090",
+        "count": 1
+      }
     ]
   }
 ]
