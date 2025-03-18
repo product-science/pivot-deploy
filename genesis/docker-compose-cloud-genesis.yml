@@ -34,7 +34,7 @@ services:
     restart: always
 
   inference-node:
-    image: gcr.io/decentralized-ai/mlnode:latest
+    image: 172.18.114.101:5556/decentralized-ai/mlnode:3.0.1-alpha1
     volumes:
       - ${HOME}/cache:/root/.cache
     environment:
