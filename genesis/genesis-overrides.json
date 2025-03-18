@@ -13,9 +13,9 @@
       "inference": {
         "params": {
           "epochParams": {
-            "epoch_length": "100",
+            "epoch_length": "2000",
             "epoch_multiplier": "1",
-            "epoch_shift": "80",
+            "epoch_shift": "1950",
             "poc_stage_duration": "20",
             "poc_exchange_duration": "2",
             "poc_validation_delay": "2",
