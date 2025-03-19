@@ -26,6 +26,9 @@ services:
     ports:
       - "26656:26656"   # p2p
       - "26657:26657"   # rpc
+
+    depends_on:
+      - genesis-inference
     restart: always
 
   genesis-api:
@@ -96,6 +99,10 @@ services:
       placement:
         constraints:
           - node.labels.join == true
+
+    depends_on:
+      - genesis-node
+      - join-inference
     restart: always
 
   join-api:
