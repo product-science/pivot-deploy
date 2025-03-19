@@ -1,0 +1,149 @@
+version: "3.8"
+
+volumes:
+  genesis-data:
+  join-data:
+
+services:
+  ########################################################################
+  # GENESIS GROUP (fixed 3 containers, pinned to genesis=true)
+  ########################################################################
+  genesis-node:
+    image: 172.18.114.101:5556/decentralized-ai/inferenced:0.0.1-alpha3
+    command: ["sh", "./init-docker-genesis.sh"]
+    environment:
+      - KEY_NAME=genesis
+      - SNAPSHOT_INTERVAL=1000
+      - SNAPSHOT_KEEP_RECENT=5
+    volumes:
+      - genesis-data:/root/.inference
+      - ./genesis-overrides.json:/root/genesis_overrides.json
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.genesis == true
+    ports:
+      - "26656:26656"   # p2p
+      - "26657:26657"   # rpc
+    restart: always
+
+  genesis-api:
+    image: 172.18.114.101:5556/decentralized-ai/api:0.0.1-alpha3
+    depends_on:
+      - genesis-node
+    environment:
+      - KEY_NAME=genesis
+      - DAPI_API__POC_CALLBACK_URL=http://genesis-api:8080
+      - DAPI_API__PUBLIC_URL=http://genesis-api:8080
+      - DAPI_CHAIN_NODE__IS_GENESIS=true
+      - NODE_CONFIG_PATH=/root/node_config.json
+    volumes:
+      - genesis-data:/root/.inference
+      - ./node-config.json:/root/node_config.json
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.genesis == true
+    ports:
+      - "8000:8080"
+    restart: always
+
+  genesis-inference:
+    image: 172.18.114.101:5556/decentralized-ai/mlnode:3.0.1-alpha1
+    command: >
+      uvicorn api.app:app
+      --host=0.0.0.0
+      --port=8080
+    environment:
+      - HF_HOME=/root/.cache
+    volumes:
+      - type: bind
+        source: /home/gm/cache
+        target: /root/.cache
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.genesis == true
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: always
+
+  ########################################################################
+  # JOIN GROUP (3 "global" services) => 1 group per labeled node
+  ########################################################################
+  join-node:
+    image: 172.18.114.101:5556/decentralized-ai/inferenced:0.0.1-alpha3
+    command: ["sh", "./init-docker.sh"]
+    environment:
+      # Each node uses the same container image, 
+      # but if you need unique identity, see "Unique ID" notes below.
+      - KEY_NAME=join-node-{{.Node.ID}}
+      # Each join container must know how to connect to Genesis by IP:
+      - SEED_NODE_RPC_URL=http://YOUR_GENESIS_NODE_IP:26657
+      - SEED_NODE_P2P_URL=YOUR_GENESIS_NODE_IP:26656
+      - SYNC_WITH_SNAPSHOTS=true
+      - RPC_SERVER_URL_1=http://YOUR_GENESIS_NODE_IP:26657
+      - TRUSTED_BLOCK_PERIOD=2000
+    volumes:
+      - join-data:/root/.inference
+    network_mode: host
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.labels.join == true
+    restart: always
+
+  join-api:
+    image: 172.18.114.101:5556/decentralized-ai/api:0.0.1-alpha3
+    depends_on:
+      - join-node
+    environment:
+      - KEY_NAME=join-api
+      - DAPI_API__POC_CALLBACK_URL=http://127.0.0.1:8080
+      - DAPI_API__PUBLIC_URL=http://127.0.0.1:8080
+      - DAPI_CHAIN_NODE__SEED_API_URL=http://YOUR_GENESIS_NODE_IP:8000
+      - NODE_CONFIG_PATH=/root/node_config.json
+    volumes:
+      - join-data:/root/.inference
+      - ./node-config.json:/root/node_config.json
+    network_mode: host
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.labels.join == true
+    restart: always
+
+  join-inference:
+    image: 172.18.114.101:5556/decentralized-ai/mlnode:3.0.1-alpha1
+    command: >
+      uvicorn api.app:app
+      --host=0.0.0.0
+      --port=8081
+    environment:
+      - HF_HOME=/root/.cache
+    volumes:
+      - type: bind
+        source: /home/gm/cache
+        target: /root/.cache
+    network_mode: host
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.labels.join == true
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: always
