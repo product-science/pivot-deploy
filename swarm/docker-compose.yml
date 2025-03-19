@@ -152,5 +152,33 @@ services:
 
 
 configs:
-  node_config:
-    external: true
+  node_config_genesis:
+    data: |
+      [
+        {
+          "id": "node1",
+          "host": "genesis-inference",
+          "inference_port": 5000,
+          "poc_port": 8080,
+          "max_concurrent": 500,
+          "models": [
+            "unsloth/llama-3-8b-Instruct"
+          ]
+        }
+      ]
+
+  # This JSON will be mounted in /root/node_config.json for the join containers:
+  node_config_join:
+    data: |
+      [
+        {
+          "id": "node1",
+          "host": "join-inference",
+          "inference_port": 5000,
+          "poc_port": 8080,
+          "max_concurrent": 500,
+          "models": [
+            "unsloth/llama-3-8b-Instruct"
+          ]
+        }
+      ]
