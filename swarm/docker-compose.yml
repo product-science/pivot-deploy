@@ -40,6 +40,7 @@ services:
       - DAPI_API__POC_CALLBACK_URL=http://genesis-api:8080
       - DAPI_API__PUBLIC_URL=http://genesis-api:8080
       - DAPI_CHAIN_NODE__IS_GENESIS=true
+      - DAPI_CHAIN_NODE__URL=http://genesis-node:26657
       - NODE_CONFIG_PATH=/root/node_config.json
     volumes:
       - genesis-data:/root/.inference
@@ -112,6 +113,7 @@ services:
       - DAPI_API__POC_CALLBACK_URL=http://join-api:8080
       - DAPI_API__PUBLIC_URL=http://join-api:8080
       - DAPI_CHAIN_NODE__SEED_API_URL=http://genesis-api:8080
+      - DAPI_CHAIN_NODE__URL=http://join-node:26657
       - NODE_CONFIG_PATH=/root/node_config.json
     volumes:
       - join-data:/root/.inference
