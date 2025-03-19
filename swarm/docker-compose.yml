@@ -39,6 +39,8 @@ services:
 
     depends_on:
       - genesis-inference
+    networks:
+      - dai-network
 
   genesis-api:
     image: 172.18.114.101:5556/decentralized-ai/api:0.0.1-alpha3
@@ -63,6 +65,8 @@ services:
     configs:
       - source: node_config_genesis
         target: /root/node_config.json
+    networks:
+      - dai-network
 
   genesis-inference:
     image: 172.18.114.101:5556/decentralized-ai/mlnode:3.0.1-alpha1
@@ -76,6 +80,8 @@ services:
       - type: bind
         source: /home/gm/cache
         target: /root/.cache
+    networks:
+      - dai-network
     deploy:
       replicas: 1
       placement:
@@ -96,7 +102,8 @@ services:
       - TRUSTED_BLOCK_PERIOD=2000
     volumes:
       - join-data:/root/.inference
-    network_mode: host
+    networks:
+      - dai-network
     deploy:
       mode: global
       placement:
@@ -120,7 +127,8 @@ services:
       - NODE_CONFIG_PATH=/root/node_config.json
     volumes:
       - join-data:/root/.inference
-    network_mode: host
+    networks:
+      - dai-network
     deploy:
       mode: global
       placement:
@@ -142,7 +150,8 @@ services:
       - type: bind
         source: /home/gm/cache
         target: /root/.cache
-    network_mode: host
+    networks:
+      - dai-network
     deploy:
       mode: global
       placement:
@@ -156,3 +165,7 @@ configs:
     file: ./node-config_genesis.json
   node_config_join:
     file: ./node-config_join.json
+
+networks:
+  dai-network:
+    driver: bridge
