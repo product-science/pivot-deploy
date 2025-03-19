@@ -40,7 +40,6 @@ services:
       - NODE_CONFIG_PATH=/root/node_config.json
     volumes:
       - genesis-data:/root/.inference
-      - ./node-config.json:/root/node_config.json
     deploy:
       replicas: 1
       placement:
@@ -49,6 +48,9 @@ services:
     ports:
       - "8000:8080"
     restart: always
+    configs:
+      - source: node_config
+        target: /root/node_config.json
 
   genesis-inference:
     image: 172.18.114.101:5556/decentralized-ai/mlnode:3.0.1-alpha1
@@ -113,7 +115,6 @@ services:
       - NODE_CONFIG_PATH=/root/node_config.json
     volumes:
       - join-data:/root/.inference
-      - ./node-config.json:/root/node_config.json
     network_mode: host
     deploy:
       mode: global
@@ -121,6 +122,9 @@ services:
         constraints:
           - node.labels.join == true
     restart: always
+    configs:
+      - source: node_config
+        target: /root/node_config.json
 
   join-inference:
     image: 172.18.114.101:5556/decentralized-ai/mlnode:3.0.1-alpha1
