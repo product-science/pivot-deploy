@@ -69,12 +69,7 @@ services:
       placement:
         constraints:
           - node.labels.genesis == true
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+          - node.labels.gpu == true
     restart: always
 
   ########################################################################
@@ -144,10 +139,5 @@ services:
       placement:
         constraints:
           - node.labels.join == true
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+          - node.labels.gpu == true
     restart: always
