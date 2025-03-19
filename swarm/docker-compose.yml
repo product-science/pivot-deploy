@@ -88,8 +88,6 @@ services:
       # Each join container must know how to connect to Genesis by IP:
       - SEED_NODE_RPC_URL=http://genesis-node:26657
       - SEED_NODE_P2P_URL=http://genesis-node:26656
-      - SYNC_WITH_SNAPSHOTS=true
-      - RPC_SERVER_URL_1=http://genesis-node:26657
       - TRUSTED_BLOCK_PERIOD=2000
     volumes:
       - join-data:/root/.inference
@@ -133,7 +131,7 @@ services:
     command: >
       uvicorn api.app:app
       --host=0.0.0.0
-      --port=8081
+      --port=8080
     environment:
       - HF_HOME=/root/.cache
     volumes:
