@@ -61,7 +61,7 @@ services:
     ports:
       - "8000:8080"
     configs:
-      - source: node_config
+      - source: node_config_genesis
         target: /root/node_config.json
 
   genesis-inference:
@@ -127,7 +127,7 @@ services:
         constraints:
           - node.labels.join == true
     configs:
-      - source: node_config
+      - source: node_config_join
         target: /root/node_config.json
 
   join-inference:
@@ -153,7 +153,7 @@ services:
 
 configs:
   node_config_genesis:
-    data: |
+    content: |
       [
         {
           "id": "node1",
@@ -169,7 +169,7 @@ configs:
 
   # This JSON will be mounted in /root/node_config.json for the join containers:
   node_config_join:
-    data: |
+    content: |
       [
         {
           "id": "node1",
