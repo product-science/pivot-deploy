@@ -84,7 +84,7 @@ services:
       - KEY_NAME=join-node-{{.Node.ID}}
       # Each join container must know how to connect to Genesis by IP:
       - SEED_NODE_RPC_URL=http://genesis-node:26657
-      - SEED_NODE_P2P_URL=genesis-node:26656
+      - SEED_NODE_P2P_URL=http://genesis-node:26656
       - SYNC_WITH_SNAPSHOTS=true
       - RPC_SERVER_URL_1=http://genesis-node:26657
       - TRUSTED_BLOCK_PERIOD=2000
