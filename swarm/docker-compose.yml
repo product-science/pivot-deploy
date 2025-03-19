@@ -2,7 +2,17 @@ version: "3.8"
 
 volumes:
   genesis-data:
+    driver: local
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: size=524288000
   join-data:
+    driver: local
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: size=524288000
 
 services:
   ########################################################################
