@@ -29,7 +29,6 @@ services:
 
     depends_on:
       - genesis-inference
-    restart: always
 
   genesis-api:
     image: 172.18.114.101:5556/decentralized-ai/api:0.0.1-alpha3
@@ -51,7 +50,6 @@ services:
           - node.labels.genesis == true
     ports:
       - "8000:8080"
-    restart: always
     configs:
       - source: node_config
         target: /root/node_config.json
@@ -74,7 +72,6 @@ services:
         constraints:
           - node.labels.genesis == true
           - node.labels.gpu == true
-    restart: always
 
   ########################################################################
   # JOIN GROUP (3 "global" services) => 1 group per labeled node
@@ -83,10 +80,7 @@ services:
     image: 172.18.114.101:5556/decentralized-ai/inferenced:0.0.1-alpha3
     command: ["sh", "./init-docker.sh"]
     environment:
-      # Each node uses the same container image, 
-      # but if you need unique identity, see "Unique ID" notes below.
-      - KEY_NAME=join-node-{{.Node.ID}}
-      # Each join container must know how to connect to Genesis by IP:
+      - KEY_NAME=join-1
       - SEED_NODE_RPC_URL=http://genesis-node:26657
       - SEED_NODE_P2P_URL=http://genesis-node:26656
       - TRUSTED_BLOCK_PERIOD=2000
@@ -102,14 +96,13 @@ services:
     depends_on:
       - genesis-node
       - join-inference
-    restart: always
 
   join-api:
     image: 172.18.114.101:5556/decentralized-ai/api:0.0.1-alpha3
     depends_on:
       - join-node
     environment:
-      - KEY_NAME=join-api
+      - KEY_NAME=join-1
       - DAPI_API__POC_CALLBACK_URL=http://join-api:8080
       - DAPI_API__PUBLIC_URL=http://join-api:8080
       - DAPI_CHAIN_NODE__SEED_API_URL=http://genesis-api:8080
@@ -123,7 +116,6 @@ services:
       placement:
         constraints:
           - node.labels.join == true
-    restart: always
     configs:
       - source: node_config
         target: /root/node_config.json
@@ -147,7 +139,6 @@ services:
         constraints:
           - node.labels.join == true
           - node.labels.gpu == true
-    restart: always
 
 
 configs:
