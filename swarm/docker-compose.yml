@@ -83,10 +83,10 @@ services:
       # but if you need unique identity, see "Unique ID" notes below.
       - KEY_NAME=join-node-{{.Node.ID}}
       # Each join container must know how to connect to Genesis by IP:
-      - SEED_NODE_RPC_URL=http://YOUR_GENESIS_NODE_IP:26657
-      - SEED_NODE_P2P_URL=YOUR_GENESIS_NODE_IP:26656
+      - SEED_NODE_RPC_URL=http://genesis-node:26657
+      - SEED_NODE_P2P_URL=genesis-node:26656
       - SYNC_WITH_SNAPSHOTS=true
-      - RPC_SERVER_URL_1=http://YOUR_GENESIS_NODE_IP:26657
+      - RPC_SERVER_URL_1=http://genesis-node:26657
       - TRUSTED_BLOCK_PERIOD=2000
     volumes:
       - join-data:/root/.inference
@@ -104,9 +104,9 @@ services:
       - join-node
     environment:
       - KEY_NAME=join-api
-      - DAPI_API__POC_CALLBACK_URL=http://127.0.0.1:8080
-      - DAPI_API__PUBLIC_URL=http://127.0.0.1:8080
-      - DAPI_CHAIN_NODE__SEED_API_URL=http://YOUR_GENESIS_NODE_IP:8000
+      - DAPI_API__POC_CALLBACK_URL=http://join-api:8080
+      - DAPI_API__PUBLIC_URL=http://join-api:8080
+      - DAPI_CHAIN_NODE__SEED_API_URL=http://genesis-api:8080
       - NODE_CONFIG_PATH=/root/node_config.json
     volumes:
       - join-data:/root/.inference
