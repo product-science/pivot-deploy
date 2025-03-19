@@ -141,3 +141,8 @@ services:
           - node.labels.join == true
           - node.labels.gpu == true
     restart: always
+
+
+configs:
+  node_config:
+    external: true
