@@ -18,11 +18,13 @@ services:
     deploy:
       replicas: 1
       placement:
-        # Pin to whichever node label is specified in .env
         constraints:
           - node.labels.${NODE_LABEL} == true
     depends_on:
       - inference
+    ports:
+      - "26656:26656"
+      - "26657:26657"
 
   ########################################################################
   # Join API
@@ -51,6 +53,8 @@ services:
     configs:
       - source: node_config
         target: /root/node_config.json
+    ports:
+      - "8080:8080"
 
   ########################################################################
   # Join Inference
