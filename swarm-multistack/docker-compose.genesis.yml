@@ -36,6 +36,7 @@ services:
     # Attach to the shared overlay
     networks:
       - dai-network
+      - genesis-network
 
   api:
     image: 172.18.114.101:5556/decentralized-ai/api:0.0.1-alpha3
@@ -62,6 +63,7 @@ services:
         target: /root/node_config.json
     networks:
       - dai-network
+      - genesis-network
 
   inference:
     image: 172.18.114.101:5556/decentralized-ai/mlnode:3.0.1-alpha1
@@ -81,6 +83,8 @@ services:
         constraints:
           - node.labels.genesis == true
           - node.labels.gpu == true
+    networks:
+      - genesis-network
 
 configs:
   node_config:
@@ -89,3 +93,6 @@ configs:
 networks:
   dai-network:
     external: true
+  genesis-network:
+    driver: overlay
+    attachable: true

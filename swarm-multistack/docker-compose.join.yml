@@ -14,6 +14,7 @@ services:
       - join-data:/root/.inference
     networks:
       - dai-network
+      - internal
     deploy:
       replicas: 1
       placement:
@@ -41,6 +42,7 @@ services:
       - join-data:/root/.inference
     networks:
       - dai-network
+      - internal
     deploy:
       replicas: 1
       placement:
@@ -71,6 +73,8 @@ services:
         constraints:
           - node.labels.${NODE_LABEL} == true
           - node.labels.gpu == true
+    networks:
+      - internal
 
 volumes:
   join-data:
@@ -87,3 +91,4 @@ configs:
 networks:
   dai-network:
     external: true
+  internal: {}
