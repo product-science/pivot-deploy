@@ -57,7 +57,7 @@ NODE_LABEL=${LABEL}
 KEY_NAME=${LABEL}
 
 SEED_NODE_RPC_URL=http://genesis_node:26657
-SEED_NODE_P2P_URL=http://genesis_node:26656
+SEED_NODE_P2P_URL=tcp://genesis_node:26656
 SEED_API_URL=http://genesis_api:8080
 
 PUBLIC_URL=http://${LABEL}_api:8080
