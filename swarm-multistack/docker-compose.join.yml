@@ -47,7 +47,7 @@ services:
         constraints:
           - node.labels.${NODE_LABEL} == true
     configs:
-      - source: node_config_join
+      - source: node_config
         target: /root/node_config.json
 
   ########################################################################
@@ -83,8 +83,8 @@ volumes:
       o: size=524288000
 
 configs:
-  node_config_join:
-    file: ./node-config_join.json
+  node_config:
+    file: ./node-config.json
 
 networks:
   dai-network:

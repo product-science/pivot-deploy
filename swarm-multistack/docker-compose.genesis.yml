@@ -58,7 +58,7 @@ services:
     ports:
       - "8080:8080"
     configs:
-      - source: node_config_genesis
+      - source: node_config
         target: /root/node_config.json
     networks:
       - dai-network
@@ -85,8 +85,8 @@ services:
       - dai-network
 
 configs:
-  node_config_genesis:
-    file: ./node-config_genesis.json
+  node_config:
+    file: ./node-config.json
 
 networks:
   dai-network:
