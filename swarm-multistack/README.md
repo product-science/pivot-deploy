@@ -16,6 +16,35 @@ Each participant has:
 We use one shared overlay network, dai-network, so everything can communicate internally via DNS names (e.g., `genesis_node`, `join1_api`, etc.) without needing external IP addresses.
 
 
+## Requirements
+
+Each server has have installed:
+- [docker](https://docs.docker.com/engine/install/)
+- [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+
+Also `nvidia` runtime has to be selected as default:
+
+In `/etc/docker/daemon.json`:
+```
+{
+    ...
+    "runtimes": {
+        "nvidia": {
+            "args": [],
+            "path": "nvidia-container-runtime"
+        }
+    },
+    "default-runtime": "nvidia"
+}
+```
+
+Then restart:
+```
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+
 ----
 
 ## Setup Swarm
@@ -27,9 +56,14 @@ Init from master node:
 docker swarm init
 ```
 
-And join from others:
+And join from workers:
 ```
 docker swarm join --token <TOKEN> <MASTER_NODE_IP>:2377
+```
+
+Also master should mark all nodes as node with gpu:
+```
+docker node update --label-add gpu=true <NODE_ID>
 ```
 
 
@@ -120,3 +154,6 @@ docker stack services join1
 docker stack services join2
 ...
 ```
+
+
+*! [WIP]: Might be potentiall issue with cleaning volumes between restart.*
