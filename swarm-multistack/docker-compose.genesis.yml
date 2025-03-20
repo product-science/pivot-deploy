@@ -81,8 +81,6 @@ services:
         constraints:
           - node.labels.genesis == true
           - node.labels.gpu == true
-    networks:
-      - dai-network
 
 configs:
   node_config:
