@@ -82,12 +82,6 @@ while ! docker stack ps genesis --format "{{.CurrentState}}" | grep -q "Running"
 done
 echo "Genesis stack is running!"
 
-# Verify services are accessible
-echo "Verifying genesis services are accessible..."
-timeout 30s bash -c 'until docker exec $(docker ps -q -f name=genesis_node) curl -s http://localhost:26657/status > /dev/null; do echo "Waiting for genesis node RPC..."; sleep 2; done'
-echo "Genesis node RPC is accessible!"
-
-
 echo ""
 echo "=== 5) Deploying each 'join{i}' stack ==="
 for ENV_FILE in "$CONFIGS_DIR"/join*.env; do
