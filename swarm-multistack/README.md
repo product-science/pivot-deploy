@@ -98,7 +98,7 @@ docker node update --label-add join1=true <WORKER_NODE_ID_1>
 Then create a file configs/join1.env:
 ```
 NODE_LABEL=join1
-KEY_NAME=join-1
+KEY_NAME=join1
 
 SEED_NODE_RPC_URL=http://genesis_node:26657
 SEED_NODE_P2P_URL=tcp://genesis_node:26656
