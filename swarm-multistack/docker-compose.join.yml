@@ -15,6 +15,15 @@ services:
     networks:
       - dai-network
       - internal
+    ports:
+      - target: 26656
+        published: 26656
+        protocol: tcp
+        mode: host
+      - target: 26657
+        published: 26657
+        protocol: tcp
+        mode: host
     deploy:
       replicas: 1
       placement:
@@ -42,6 +51,11 @@ services:
     networks:
       - dai-network
       - internal
+    ports:
+      - target: 8080
+        published: 8000
+        protocol: tcp
+        mode: host
     deploy:
       replicas: 1
       placement:

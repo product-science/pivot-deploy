@@ -27,13 +27,17 @@ services:
       placement:
         constraints:
           - node.labels.genesis == true
-    # Publish ports externally if you want outside access (p2p=26656, RPC=26657)
     ports:
-      - "26656:26656"
-      - "26657:26657"
+      - target: 26656
+        published: 26656
+        protocol: tcp
+        mode: host
+      - target: 26657
+        published: 26657
+        protocol: tcp
+        mode: host
     depends_on:
       - inference
-    # Attach to the shared overlay
     networks:
       - dai-network
       - genesis-network
@@ -57,7 +61,10 @@ services:
         constraints:
           - node.labels.genesis == true
     ports:
-      - "8080:8080"
+      - target: 8080
+        published: 8000
+        protocol: tcp
+        mode: host
     configs:
       - source: node_config
         target: /root/node_config.json
