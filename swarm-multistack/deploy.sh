@@ -78,7 +78,8 @@ echo "=== 5) Deploying each 'join{i}' stack ==="
 for ENV_FILE in "$CONFIGS_DIR"/join*.env; do
   STACK_NAME="$(basename "$ENV_FILE" .env)"  # e.g. join1, join2, ...
   echo "Deploying stack '$STACK_NAME' with env file '$ENV_FILE'"
-  docker stack deploy -c docker-compose.join.yml --env-file "$ENV_FILE" "$STACK_NAME"
+  set -a && source "$ENV_FILE" && set +a && \
+    docker stack deploy -c docker-compose.join.yml "$STACK_NAME"
 done
 
 echo ""
