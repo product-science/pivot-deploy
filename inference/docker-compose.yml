@@ -1,6 +1,6 @@
 services:
   inference-node:
-    image: gcr.io/decentralized-ai/mlnode:latest
+    image: ghcr.io/product-science/mlnode:3.0.1-alpha1
     volumes:
       - ${HOME}/cache:/root/.cache
     environment:
