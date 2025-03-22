@@ -51,7 +51,7 @@ services:
       - DAPI_API__POC_CALLBACK_URL=http://api:8080
       - DAPI_API__PUBLIC_URL=http://genesis_api:8080
       - DAPI_CHAIN_NODE__IS_GENESIS=true
-      - DAPI_CHAIN_NODE__URL=http://node:26657
+      - DAPI_CHAIN_NODE__URL=http://genesis_node:26657
       - NODE_CONFIG_PATH=/root/node_config.json
     volumes:
       - genesis-data:/root/.inference
