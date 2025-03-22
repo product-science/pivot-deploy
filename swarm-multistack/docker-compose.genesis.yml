@@ -53,6 +53,7 @@ services:
       - DAPI_CHAIN_NODE__IS_GENESIS=true
       - DAPI_CHAIN_NODE__URL=http://genesis_node:26657
       - NODE_CONFIG_PATH=/root/node_config.json
+      - P2P_EXTERNAL_ADDRESS=tcp://genesis_node:26656
     volumes:
       - genesis-data:/root/.inference
     deploy:

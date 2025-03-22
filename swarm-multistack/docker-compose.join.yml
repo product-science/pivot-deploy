@@ -10,6 +10,7 @@ services:
       - SEED_NODE_RPC_URL=${SEED_NODE_RPC_URL}
       - SEED_NODE_P2P_URL=${SEED_NODE_P2P_URL}
       - TRUSTED_BLOCK_PERIOD=${TRUSTED_BLOCK_PERIOD:-2000}
+      - P2P_EXTERNAL_ADDRESS=${P2P_EXTERNAL_ADDRESS}
     volumes:
       - join-data:/root/.inference
     networks:
