@@ -3,7 +3,7 @@ services:
   # Join node
   ########################################################################
   node:
-    image: 172.18.114.101:5556/decentralized-ai/inferenced:0.0.1-multimodels-1
+    image: 172.18.114.101:5556/decentralized-ai/inferenced:0.0.1-multimodels-2
     command: ["sh", "./init-docker.sh"]
     environment:
       - KEY_NAME=${KEY_NAME}
@@ -36,7 +36,7 @@ services:
   # Join API
   ########################################################################
   api:
-    image: 172.18.114.101:5556/decentralized-ai/api:0.0.1-multimodels-1
+    image: 172.18.114.101:5556/decentralized-ai/api:0.0.1-multimodels-2
     depends_on:
       - node
     environment:
