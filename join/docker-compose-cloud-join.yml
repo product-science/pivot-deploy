@@ -1,7 +1,7 @@
 services:
   node:
     container_name: node
-    image: 172.18.114.101:5556/decentralized-ai/inferenced:0.0.1-alpha3
+    image: ghcr.io/product-science/inferenced:0.0.1-alpha3
     command: ["sh", "./init-docker.sh"]
     volumes:
       - .inference:/root/.inference
@@ -18,7 +18,7 @@ services:
       - "26657:26657" #rpc
   api:
     container_name: api
-    image: 172.18.114.101:5556/decentralized-ai/api:0.0.1-alpha3
+    image: ghcr.io/product-science/api:0.0.1-alpha3
     volumes:
       - .inference:/root/.inference
       - ./node-config.json:/root/node_config.json
@@ -26,16 +26,16 @@ services:
       - node
     environment:
       - KEY_NAME=${KEY_NAME}
-      - DAPI_API__POC_CALLBACK_URL=http://api:8080
+      - DAPI_API__POC_CALLBACK_URL=${DAPI_API__POC_CALLBACK_URL}
       - DAPI_API__PUBLIC_URL=${PUBLIC_URL}
       - DAPI_CHAIN_NODE__SEED_API_URL=${SEED_API_URL}
       - NODE_CONFIG_PATH=/root/node_config.json
     ports:
-      - "${PORT:-8080}:8080"
+      - "${PORT:-8000}:8080"
     restart: always
 
   inference-node:
-    image: 172.18.114.101:5556/decentralized-ai/mlnode:3.0.1-alpha1
+    image: ghcr.io/product-science/mlnode:3.0.1-alpha1
     volumes:
       - ${HOME}/cache:/root/.cache
     environment:
@@ -53,6 +53,3 @@ services:
       --host=0.0.0.0
       --port=8080
     restart: always
-
-volumes:
-  inference-data:
