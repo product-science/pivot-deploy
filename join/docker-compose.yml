@@ -50,6 +50,8 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+
+    ipc: host
     command: >
       uvicorn api.app:app
       --host=0.0.0.0

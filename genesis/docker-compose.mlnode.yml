@@ -12,6 +12,7 @@ services:
       - HF_HOME=/root/.cache
     volumes:
       - /srv/dai/cache:/root/.cache
+    ipc: host
     deploy:
       resources:
         reservations:
