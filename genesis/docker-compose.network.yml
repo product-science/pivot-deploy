@@ -1,6 +1,6 @@
 services:
   node:
-    image: ghcr.io/product-science/inferenced:0.0.1-alpha6
+    image: ghcr.io/product-science/inferenced:0.0.1-alpha7
     command: ["sh", "./init-docker-genesis.sh"]
     environment:
       - KEY_NAME=genesis
@@ -20,7 +20,7 @@ services:
       - "26657:26657"
 
   api:
-    image: ghcr.io/product-science/api:0.0.1-alpha6
+    image: ghcr.io/product-science/api:0.0.1-alpha7
     depends_on:
       - node
     environment:
