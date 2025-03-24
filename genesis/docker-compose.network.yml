@@ -11,6 +11,7 @@ services:
       - DAPI_CHAIN_NODE__IS_GENESIS=true
       - DAPI_CHAIN_NODE__URL=http://10.0.0.3:26657
       - NODE_CONFIG_PATH=/root/node_config.json
+      - P2P_EXTERNAL_ADDRESS=tcp://195.242.10.196:26656
     volumes:
       - /srv/dai/inference:/root/.inference
       - ./genesis-overrides.json:/root/genesis_overrides.json
