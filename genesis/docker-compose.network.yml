@@ -30,3 +30,9 @@ services:
       - ./node-config:/root/node_config.json
     ports:
       - "8000:8080"
+
+
+networks:
+  genesis-network:
+    driver: bridge
+    external: true
