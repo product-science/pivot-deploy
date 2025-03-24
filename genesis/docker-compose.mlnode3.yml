@@ -1,6 +1,6 @@
 services:
   inference:
-    image: gcr.io/decentralized-ai/mlnode:3.0.3-alpha1
+    image: ghcr.io/product-science/mlnode:3.0.3-alpha1
     command: >
       uvicorn api.app:app
       --host=0.0.0.0
