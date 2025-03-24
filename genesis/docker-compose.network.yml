@@ -1,6 +1,6 @@
 services:
   node:
-    image: ghcr.io/product-science/inferenced:0.0.1-alpha6
+    image: ghcr.io/product-science/inferenced:0.0.1-alpha7
     command: ["sh", "./init-docker-genesis.sh"]
     environment:
       - KEY_NAME=genesis
@@ -11,6 +11,7 @@ services:
       - DAPI_CHAIN_NODE__IS_GENESIS=true
       - DAPI_CHAIN_NODE__URL=http://10.0.0.3:26657
       - NODE_CONFIG_PATH=/root/node_config.json
+      - P2P_EXTERNAL_ADDRESS=tcp://195.242.10.196:26656
     volumes:
       - /srv/dai/inference:/root/.inference
       - ./genesis-overrides.json:/root/genesis_overrides.json
@@ -19,7 +20,7 @@ services:
       - "26657:26657"
 
   api:
-    image: ghcr.io/product-science/api:0.0.1-alpha6
+    image: ghcr.io/product-science/api:0.0.1-alpha7
     depends_on:
       - node
     environment:

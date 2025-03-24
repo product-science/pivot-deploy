@@ -1,7 +1,7 @@
 services:
   node:
     container_name: node
-    image: ghcr.io/product-science/inferenced:0.0.1-alpha6
+    image: ghcr.io/product-science/inferenced:0.0.1-alpha7
     command: ["sh", "./init-docker.sh"]
     volumes:
       - .inference:/root/.inference
@@ -10,13 +10,14 @@ services:
       - SEED_NODE_P2P_URL=${SEED_NODE_P2P_URL}
       - TRUSTED_BLOCK_PERIOD=${TRUSTED_BLOCK_PERIOD:-2000} # num of blocks to return back from latest block to get the earliest trusted snapshot
       - KEY_NAME=${KEY_NAME}
+      - P2P_EXTERNAL_ADDRESS=${P2P_EXTERNAL_ADDRESS}
       - DAPI_API__PUBLIC_URL=${PUBLIC_URL}
     ports:
       - "5000:26656" #p2p
       - "26657:26657" #rpc
   api:
     container_name: api
-    image: ghcr.io/product-science/api:0.0.1-alpha6
+    image: ghcr.io/product-science/api:0.0.1-alpha7
     volumes:
       - .inference:/root/.inference
       - ./node-config.json:/root/node_config.json
