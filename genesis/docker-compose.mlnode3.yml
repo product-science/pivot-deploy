@@ -10,9 +10,7 @@ services:
     environment:
       - HF_HOME=/root/.cache
     volumes:
-      - type: bind
-        source: /srv/cache
-        target: /root/.cache
+      - /srv/dai/cache:/root/.cache
     deploy:
       resources:
         reservations:
