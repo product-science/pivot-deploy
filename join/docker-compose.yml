@@ -10,7 +10,6 @@ services:
       - SEED_NODE_P2P_URL=${SEED_NODE_P2P_URL}
       - TRUSTED_BLOCK_PERIOD=${TRUSTED_BLOCK_PERIOD:-2000} # num of blocks to return back from latest block to get the earliest trusted snapshot
       - KEY_NAME=${KEY_NAME}
-      - P2P_EXTERNAL_ADDRESS=${P2P_EXTERNAL_ADDRESS}
       - DAPI_API__PUBLIC_URL=${PUBLIC_URL}
     ports:
       - "5000:26656" #p2p
