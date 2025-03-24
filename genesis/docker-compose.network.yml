@@ -29,6 +29,6 @@ services:
       - P2P_EXTERNAL_ADDRESS=tcp://195.242.10.196:26656
     volumes:
       - /srv/dai/inference:/root/.inference
-      - node-config:/root/node_config.json
+      - ./node-config:/root/node_config.json
     ports:
       - "8000:8080"
