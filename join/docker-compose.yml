@@ -1,21 +1,22 @@
 services:
   node:
     container_name: node
-    image: ghcr.io/product-science/inferenced:0.0.1-alpha3
-    command: ["sh", "./init-docker-genesis.sh"]
+    image: ghcr.io/product-science/inferenced:0.0.1-alpha6
+    command: ["sh", "./init-docker.sh"]
     volumes:
       - .inference:/root/.inference
-      - ./genesis-overrides.json:/root/genesis_overrides.json
     environment:
+      - SEED_NODE_RPC_URL=${SEED_NODE_RPC_URL}
+      - SEED_NODE_P2P_URL=${SEED_NODE_P2P_URL}
+      - TRUSTED_BLOCK_PERIOD=${TRUSTED_BLOCK_PERIOD:-2000} # num of blocks to return back from latest block to get the earliest trusted snapshot
       - KEY_NAME=${KEY_NAME}
-      - SNAPSHOT_INTERVAL=${SNAPSHOT_INTERVAL:-1000} # how often create state snapshots
-      - SNAPSHOT_KEEP_RECENT=${SNAPSHOT_KEEP_RECENT:-5} # how many snapshots to keep
+      - DAPI_API__PUBLIC_URL=${PUBLIC_URL}
     ports:
-      - "26656:26656" #p2p
+      - "5000:26656" #p2p
       - "26657:26657" #rpc
   api:
     container_name: api
-    image: ghcr.io/product-science/api:0.0.1-alpha3
+    image: ghcr.io/product-science/api:0.0.1-alpha6
     volumes:
       - .inference:/root/.inference
       - ./node-config.json:/root/node_config.json
@@ -25,16 +26,19 @@ services:
       - KEY_NAME=${KEY_NAME}
       - DAPI_API__POC_CALLBACK_URL=${DAPI_API__POC_CALLBACK_URL}
       - DAPI_API__PUBLIC_URL=${PUBLIC_URL}
-      - IS_GENESIS=true
+      - DAPI_CHAIN_NODE__SEED_API_URL=${SEED_API_URL}
+      - DAPI_CHAIN_NODE__URL=${DAPI_CHAIN_NODE__URL}
+      - DAPI_CHAIN_NODE__P2P_URL=${DAPI_CHAIN_NODE__P2P_URL}
       - NODE_CONFIG_PATH=/root/node_config.json
+      - P2P_EXTERNAL_ADDRESS=${P2P_EXTERNAL_ADDRESS}
     ports:
-      - "${PORT:-8080}:8080"
+      - "${PORT:-8000}:8080"
     restart: always
 
   inference-node:
-    image: ghcr.io/product-science/mlnode:3.0.1-alpha1
+    image: ghcr.io/product-science/mlnode:3.0.3-alpha1
     volumes:
-      - ${HOME}/cache:/root/.cache
+      - ${HF_HOME:-${HOME}/cache}:/root/.cache
     environment:
       - HF_HOME=/root/.cache
       - HF_HUB_ENABLE_HF_TRANSFER=true
@@ -45,6 +49,8 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+
+    ipc: host
     command: >
       uvicorn api.app:app
       --host=0.0.0.0
