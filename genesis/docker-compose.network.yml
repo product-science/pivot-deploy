@@ -12,8 +12,6 @@ services:
     ports:
       - "26656:26656"
       - "26657:26657"
-    depends_on:
-      - inference
 
   api:
     image: ghcr.io/product-science/api:0.0.1-alpha6
