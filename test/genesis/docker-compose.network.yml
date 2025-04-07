@@ -1,6 +1,6 @@
 services:
   node:
-    image: ghcr.io/product-science/inferenced:0.0.2-alpha3
+    image: ghcr.io/product-science/inferenced:0.0.2-alpha4
     command: ["sh", "./init-docker-genesis.sh"]
     network_mode: host
     environment:
@@ -19,7 +19,7 @@ services:
       - ./genesis-overrides.json:/root/genesis_overrides.json
 
   api:
-    image: ghcr.io/product-science/api:0.0.2-alpha3
+    image: ghcr.io/product-science/api:0.0.2-alpha4
     depends_on:
       - node
     environment:
