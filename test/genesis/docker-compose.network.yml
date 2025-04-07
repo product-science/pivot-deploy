@@ -1,0 +1,63 @@
+services:
+  node:
+    image: ghcr.io/product-science/inferenced:0.0.2-alpha2
+    command: ["sh", "./init-docker-genesis.sh"]
+    environment:
+      - KEY_NAME=genesis
+      - SNAPSHOT_INTERVAL=1000
+      - SNAPSHOT_KEEP_RECENT=5
+      - DAPI_API__POC_CALLBACK_URL=http://api:8080
+      - DAPI_API__PUBLIC_URL=http://36.189.234.237:19250
+      - DAPI_CHAIN_NODE__IS_GENESIS=true
+      - DAPI_CHAIN_NODE__URL=http://node:26657
+      - NODE_CONFIG_PATH=/root/node_config.json
+      - P2P_EXTERNAL_ADDRESS=tcp://36.189.234.237:19249
+    volumes:
+      - /srv/dai/inference:/root/.inference
+      - ./genesis-overrides.json:/root/genesis_overrides.json
+    ports:
+      - "5000:26656"
+      - "26657:26657"
+
+  api:
+    image: ghcr.io/product-science/api:0.0.2-alpha2
+    depends_on:
+      - node
+    environment:
+      - KEY_NAME=genesis
+      - DAPI_API__POC_CALLBACK_URL=http://api:8080
+      - DAPI_API__PUBLIC_URL=http://36.189.234.237:19250
+      - DAPI_CHAIN_NODE__IS_GENESIS=true
+      - DAPI_CHAIN_NODE__URL=http://node:26657
+      - NODE_CONFIG_PATH=/root/node_config.json
+      - P2P_EXTERNAL_ADDRESS=tcp://36.189.234.237:19249
+    volumes:
+      - /srv/dai/inference:/root/.inference
+      - ./node-config.json:/root/node_config.json
+    ports:
+      - "8000:8080"
+
+  inference:
+    image: ghcr.io/product-science/mlnode:3.0.4-alpha1
+    command: >
+      uvicorn api.app:app
+      --host=0.0.0.0
+      --port=8080
+    ports:
+      - "8080:8080"
+      - "5000:5000"
+    environment:
+      - HF_HOME=/root/.cache
+    volumes:
+      - ${HF_HOME:-${HOME}/cache}:/root/.cache
+    ipc: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+networks:
+  genesis-network:
