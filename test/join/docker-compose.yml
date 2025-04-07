@@ -13,7 +13,6 @@ services:
       - P2P_EXTERNAL_ADDRESS=${P2P_EXTERNAL_ADDRESS}
       - DAPI_API__PUBLIC_URL=${PUBLIC_URL}
       - CONFIG_p2p__laddr="tcp://0.0.0.0:5000"
-      - CONFIG_p2p__allow_duplicate_ip=true
     network_mode: host
   
   api:

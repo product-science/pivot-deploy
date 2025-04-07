@@ -7,14 +7,13 @@ services:
       - KEY_NAME=genesis
       - SNAPSHOT_INTERVAL=1000
       - SNAPSHOT_KEEP_RECENT=5
-      - DAPI_API__POC_CALLBACK_URL=http://api:8080
+      - DAPI_API__POC_CALLBACK_URL=http://0.0.0.0:8080
       - DAPI_API__PUBLIC_URL=http://36.189.234.237:19250
       - DAPI_CHAIN_NODE__IS_GENESIS=true
-      - DAPI_CHAIN_NODE__URL=http://node:26657
+      - DAPI_CHAIN_NODE__URL=http://0.0.0.0:26657
       - NODE_CONFIG_PATH=/root/node_config.json
       - P2P_EXTERNAL_ADDRESS=tcp://36.189.234.237:19249
       - CONFIG_p2p__laddr="tcp://0.0.0.0:5000"
-      - CONFIG_p2p__allow_duplicate_ip=true
     volumes:
       - ./.inference:/root/.inference
       - ./genesis-overrides.json:/root/genesis_overrides.json
