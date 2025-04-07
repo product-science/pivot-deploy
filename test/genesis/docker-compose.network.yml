@@ -14,6 +14,7 @@ services:
       - NODE_CONFIG_PATH=/root/node_config.json
       - P2P_EXTERNAL_ADDRESS=tcp://36.189.234.237:19249
       - CONFIG_p2p__laddr="tcp://0.0.0.0:5000"
+      - CONFIG_p2p__allow_duplicate_ip=true
     volumes:
       - ./.inference:/root/.inference
       - ./genesis-overrides.json:/root/genesis_overrides.json
