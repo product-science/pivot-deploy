@@ -12,9 +12,9 @@ services:
       - KEY_NAME=${KEY_NAME}
       - P2P_EXTERNAL_ADDRESS=${P2P_EXTERNAL_ADDRESS}
       - DAPI_API__PUBLIC_URL=${PUBLIC_URL}
-    ports:
-      - "5000:26656" #p2p
-      - "26657:26657" #rpc
+      - CONFIG_p2p__laddr="tcp://0.0.0.0:5000"
+    network_mode: host
+  
   api:
     container_name: api
     image: ghcr.io/product-science/api:0.0.2-alpha3
@@ -32,17 +32,18 @@ services:
       - DAPI_CHAIN_NODE__P2P_URL=${DAPI_CHAIN_NODE__P2P_URL}
       - NODE_CONFIG_PATH=/root/node_config.json
       - P2P_EXTERNAL_ADDRESS=${P2P_EXTERNAL_ADDRESS}
-    ports:
-      - "${PORT:-8000}:8080"
+      - DAPI_API__PORT=8000
+    network_mode: host
     restart: always
 
   inference:
-    image: ghcr.io/product-science/mlnode:3.0.4-alpha1
+    image: ghcr.io/product-science/mlnode:3.0.4-alpha2
     volumes:
       - ${HF_HOME:-${HOME}/cache}:/root/.cache
     environment:
       - HF_HOME=/root/.cache
       - HF_HUB_ENABLE_HF_TRANSFER=true
+      - INFERENCE_PORT=5050
     deploy:
       resources:
         reservations:
@@ -57,3 +58,4 @@ services:
       --host=0.0.0.0
       --port=8080
     restart: always
+    network_mode: host
