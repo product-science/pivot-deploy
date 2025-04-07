@@ -32,7 +32,7 @@ services:
       - NODE_CONFIG_PATH=/root/node_config.json
       - P2P_EXTERNAL_ADDRESS=tcp://36.189.234.237:19249
     volumes:
-      - /srv/dai/inference:/root/.inference
+      - ./.inference:/root/.inference
       - ./node-config.json:/root/node_config.json
     ports:
       - "8000:8080"
