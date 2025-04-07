@@ -36,7 +36,7 @@ services:
       - "${PORT:-8000}:8080"
     restart: always
 
-  inference-node:
+  inference:
     image: ghcr.io/product-science/mlnode:3.0.4-alpha1
     volumes:
       - ${HF_HOME:-${HOME}/cache}:/root/.cache
