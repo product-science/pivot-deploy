@@ -1,7 +1,7 @@
 services:
   node:
     container_name: node
-    image: ghcr.io/product-science/inferenced:0.0.2-alpha2
+    image: ghcr.io/product-science/inferenced:0.0.2-alpha3
     command: ["sh", "./init-docker.sh"]
     volumes:
       - .inference:/root/.inference
@@ -17,7 +17,7 @@ services:
       - "26657:26657" #rpc
   api:
     container_name: api
-    image: ghcr.io/product-science/api:0.0.2-alpha2
+    image: ghcr.io/product-science/api:0.0.2-alpha3
     volumes:
       - .inference:/root/.inference
       - ./node-config.json:/root/node_config.json
