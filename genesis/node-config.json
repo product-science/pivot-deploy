@@ -6,22 +6,7 @@
     "poc_port": 8080,
     "max_concurrent": 500,
     "models": {
-      "Qwen/Qwen2.5-7B-Instruct": {
-        "args": [
-          "--quantization",
-          "fp8"
-        ]
-      }
-    }
-  },
-  {
-    "id": "mlnode2",
-    "host": "10.0.0.2",
-    "inference_port": 5000,
-    "poc_port": 8080,
-    "max_concurrent": 500,
-    "models": {
-      "Qwen/QwQ-32B": {
+      "unsloth/llama-3-8b-Instruct": {
         "args": [
           "--quantization",
           "fp8"
