@@ -6,12 +6,7 @@
     "poc_port": 8080,
     "max_concurrent": 500,
     "models": {
-      "unsloth/llama-3-8b-Instruct": {
-        "args": [
-          "--quantization",
-          "fp8"
-        ]
-      }
+      "unsloth/llama-3-8b-Instruct": {}
     }
   }
 ]
