@@ -2,7 +2,6 @@ services:
   node:
     container_name: node
     image: ghcr.io/product-science/inferenced:0.0.2-alpha4
-    restart: always
     command: ["sh", "./init-docker.sh"]
     volumes:
       - .inference:/root/.inference
@@ -10,10 +9,6 @@ services:
       - SEED_NODE_RPC_URL=${SEED_NODE_RPC_URL}
       - SEED_NODE_P2P_URL=${SEED_NODE_P2P_URL}
       - TRUSTED_BLOCK_PERIOD=${TRUSTED_BLOCK_PERIOD:-2000}
-      - SNAPSHOT_INTERVAL=1000
-      - SNAPSHOT_KEEP_RECENT=5
-      - RPC_SERVER_URL_1=${RPC_SERVER_URL_1}
-      - RPC_SERVER_URL_2=${RPC_SERVER_URL_2}
       - KEY_NAME=${KEY_NAME}
       - P2P_EXTERNAL_ADDRESS=${P2P_EXTERNAL_ADDRESS}
       - CONFIG_p2p__allow_duplicate_ip=true
@@ -25,7 +20,6 @@ services:
   api:
     container_name: api
     image: ghcr.io/product-science/api:0.0.2-alpha4
-    restart: always
     volumes:
       - .inference:/root/.inference
       - ./node-config.json:/root/node_config.json
@@ -41,10 +35,10 @@ services:
       - NODE_CONFIG_PATH=/root/node_config.json
     ports:
       - "${PORT:-8000}:8080"
+    restart: always
 
   inference:
     image: ghcr.io/product-science/mlnode:3.0.4-alpha2
-    restart: always
     volumes:
       - ${HF_HOME:-${HOME}/cache}:/root/.cache
     environment:
@@ -63,4 +57,4 @@ services:
       uvicorn api.app:app
       --host=0.0.0.0
       --port=8080
-  
+    restart: always
