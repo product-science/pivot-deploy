@@ -10,7 +10,7 @@ services:
 
   node:
     container_name: node
-    image: ghcr.io/product-science/inferenced:0.0.2-alpha5
+    image: gcr.io/decentralized-ai/inferenced:3febb21
     restart: always
     command: ["sh", "./init-docker.sh"]
     volumes:
@@ -34,9 +34,11 @@ services:
       - "26657:26657" #rpc
     expose:
       - "${TKMS_PORT:-26658}"
+    depends_on:
+      - tmkms
   api:
     container_name: api
-    image: ghcr.io/product-science/api:0.0.2-alpha5
+    image: gcr.io/decentralized-ai/api:3febb21
     restart: always
     volumes:
       - .inference:/root/.inference
