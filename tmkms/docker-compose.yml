@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  tmkms:
+    image: "your_image_name_here"
+    container_name: tmkms
+    restart: unless-stopped
+    environment:
+      - VALIDATOR_LISTEN_ADDRESS=${VALIDATOR_LISTEN_ADDRESS}
+    volumes:
+      - tmkms_data:/root/.tmkms
+
+volumes:
+  tmkms_data:

@@ -1,7 +1,16 @@
 services:
+  tmkms:
+    image: gcr.io/decentralized-ai/tmkms-softsign-with-keygen
+    container_name: tmkms
+    restart: unless-stopped
+    environment:
+      - VALIDATOR_LISTEN_ADDRESS=tcp://node:${TKMS_PORT:-26658}
+    volumes:
+      - tmkms_data:/root/.tmkms
+
   node:
     container_name: node
-    image: gcr.io/decentralized-ai/inferenced:api-test2
+    image: gcr.io/decentralized-ai/inferenced:3febb21
     restart: always
     command: ["sh", "./init-docker.sh"]
     volumes:
@@ -19,12 +28,17 @@ services:
       - CONFIG_p2p__allow_duplicate_ip=true
       - CONFIG_p2p__handshake_timeout=30s
       - CONFIG_p2p__dial_timeout=30s
+      - TKMS_PORT=${TKMS_PORT:-26658}
     ports:
       - "5000:26656" #p2p
       - "26657:26657" #rpc
+    expose:
+      - "${TKMS_PORT:-26658}"
+    depends_on:
+      - tmkms
   api:
     container_name: api
-    image: gcr.io/decentralized-ai/api:api-test2
+    image: gcr.io/decentralized-ai/api:3febb21
     restart: always
     volumes:
       - .inference:/root/.inference
@@ -68,4 +82,6 @@ services:
       uvicorn api.app:app
       --host=0.0.0.0
       --port=8080
-  
+
+volumes:
+  tmkms_data:
