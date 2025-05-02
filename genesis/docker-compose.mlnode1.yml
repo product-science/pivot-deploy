@@ -6,11 +6,10 @@ services:
       uvicorn api.app:app
       --host=0.0.0.0
       --port=8080
-    volumes:
-      - ${HF_HOME:-${HOME}/cache}:/root/.cache
     environment:
       - HF_HOME=/root/.cache
-      - HF_HUB_ENABLE_HF_TRANSFER=true
+    volumes:
+      - /srv/dai/cache:/root/.cache
     ipc: host
     deploy:
       resources:
