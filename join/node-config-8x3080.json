@@ -9,15 +9,13 @@
       "Qwen/Qwen2.5-7B-Instruct": {
         "args": [
           "--quantization",
-          "fp8"
+          "fp8",
+          "--tensor-parallel-size",
+          "4",
+          "--pipeline-parallel-size",
+          "2"
         ]
       }
-    },
-    "hardware": [
-      {
-        "type": "3090",
-        "count": 1
-      }
-    ]
+    }
   }
 ]
