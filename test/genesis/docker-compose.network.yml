@@ -10,6 +10,7 @@ services:
 
   node:
     image: ghcr.io/product-science/inferenced:gonka-test-net-1-1
+    restart: always
     command: ["sh", "./init-docker-genesis.sh"]
     environment:
       - KEY_NAME=genesis
@@ -33,6 +34,7 @@ services:
 
   api:
     image: ghcr.io/product-science/api:gonka-test-net-1-1
+    restart: always
     depends_on:
       - node
     environment:
