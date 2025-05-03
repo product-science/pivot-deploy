@@ -21,14 +21,14 @@ services:
       - CONFIG_p2p__handshake_timeout=30s
       - CONFIG_p2p__dial_timeout=30s
       - TKMS_PORT=${TKMS_PORT:-26658}
+      - INIT_TGBOT=true
+      - TGBOT_PRIVATE_KEY_PASS=defaultpassword
     volumes:
       - ./.inference:/root/.inference
       - ./genesis-overrides.json:/root/genesis_overrides.json
     ports:
       - "5000:26656"
       - "26657:26657"
-    expose:
-      - "${TKMS_PORT:-26658}"
     depends_on:
       - tmkms
 
@@ -56,15 +56,15 @@ services:
 
   inference:
     image: ghcr.io/product-science/mlnode:3.0.4-alpha2
+    restart: always
     command: >
       uvicorn api.app:app
       --host=0.0.0.0
       --port=8080
     environment:
       - HF_HOME=/root/.cache
-      - HF_HUB_ENABLE_HF_TRANSFER=true
     volumes:
-      - ${HF_HOME:-${HOME}/cache}:/root/.cache
+      - /mnt/shared/:/root/.cache
     ipc: host
     deploy:
       resources:
@@ -73,8 +73,6 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
-
-    restart: always
 
 volumes:
   tmkms_data:
