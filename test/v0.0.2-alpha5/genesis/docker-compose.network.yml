@@ -29,7 +29,7 @@ services:
     environment:
       - KEY_NAME=genesis
       - DAPI_API__POC_CALLBACK_URL=http://api:8000
-      - DAPI_API__PUBLIC_URL=http://36.189.234.237:8000
+      - DAPI_API__PUBLIC_URL=http://36.189.234.237:19250
       - DAPI_CHAIN_NODE__IS_GENESIS=true
       - DAPI_CHAIN_NODE__URL=http://node:26657
       - NODE_CONFIG_PATH=/root/node_config.json
