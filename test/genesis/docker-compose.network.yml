@@ -21,7 +21,6 @@ services:
       - CONFIG_p2p__allow_duplicate_ip=true
       - CONFIG_p2p__handshake_timeout=30s
       - CONFIG_p2p__dial_timeout=30s
-      - CONFIG_priv_validator_laddr=tcp://0.0.0.0:26658
       - TKMS_PORT=${TKMS_PORT:-26658}
     volumes:
       - /srv/dai/inference:/root/.inference
@@ -29,6 +28,8 @@ services:
     ports:
       - "5000:26656"
       - "26657:26657"
+    expose:
+      - "${TKMS_PORT:-26658}"
     depends_on:
       - tmkms
 
