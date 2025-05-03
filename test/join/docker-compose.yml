@@ -1,6 +1,6 @@
 services:
   tmkms:
-    image: gcr.io/decentralized-ai/tmkms-softsign-with-keygen:gonka-test-net-1-1
+    image: ghcr.io/product-science/tmkms-softsign-with-keygen:gonka-test-net-1-1
     container_name: tmkms
     restart: unless-stopped
     environment:
