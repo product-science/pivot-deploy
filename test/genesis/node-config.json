@@ -1,6 +1,6 @@
 [
   {
-    "id": "mlnode1",
+    "id": "mlnode",
     "host": "inference",
     "inference_port": 5000,
     "poc_port": 8080,
