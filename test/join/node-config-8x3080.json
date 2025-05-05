@@ -9,7 +9,11 @@
       "Qwen/Qwen2.5-7B-Instruct": {
         "args": [
           "--quantization",
-          "fp8"
+          "fp8",
+          "--tensor-parallel-size",
+          "4",
+          "--pipeline-parallel-size",
+          "2"
         ]
       }
     }
