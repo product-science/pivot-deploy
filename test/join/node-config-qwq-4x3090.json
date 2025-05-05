@@ -11,7 +11,9 @@
           "--quantization",
           "fp8",
           "--tensor-parallel-size",
-          "4"
+          "4",
+          "--kv-cache-dtype",
+          "fp8"
         ]
       }
     }

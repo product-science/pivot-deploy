@@ -9,22 +9,23 @@
             "amount": "25_000_000"
           }
         ],
-        "expedited_voting_period": "12h0m0s",
+        "expedited_voting_period": "1h0m0s",
         "expedited_min_deposit": [
           {
             "denom": "nicoin",
             "amount": "50_000_000"
           }
-        ]
+        ],
+        "quorum": "0.01000000000000000"
       }
     },
     "inference": {
       "params": {
         "epochParams": {
-          "epoch_length": "180",
+          "epoch_length": "250",
           "epoch_multiplier": "1",
-          "epoch_shift": "140",
-          "poc_stage_duration": "40",
+          "epoch_shift": "200",
+          "poc_stage_duration": "60",
           "poc_exchange_duration": "5",
           "poc_validation_delay": "5",
           "poc_validation_duration": "20",
