@@ -11,6 +11,7 @@ services:
       - "5000:5000"
     environment:
       - HF_HOME=/root/.cache
+      - VLLM_ATTENTION_BACKEND=FLASHINFER
     volumes:
       - /srv/dai/cache:/root/.cache
     ipc: host

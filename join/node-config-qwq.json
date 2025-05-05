@@ -9,6 +9,8 @@
       "Qwen/QwQ-32B": {
         "args": [
           "--quantization",
+          "fp8",
+          "--kv-cache-dtype",
           "fp8"
         ]
       }
