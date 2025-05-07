@@ -82,7 +82,6 @@ services:
       --port=8080
     ports:
       - "8080:8080"
-      - "5000:5000"
     restart: always
 
 volumes:
