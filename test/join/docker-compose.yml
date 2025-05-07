@@ -1,7 +1,16 @@
 services:
+  tmkms:
+    image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.0
+    container_name: tmkms
+    restart: unless-stopped
+    environment:
+      - VALIDATOR_LISTEN_ADDRESS=tcp://node:${TKMS_PORT:-26658}
+    volumes:
+      - tmkms_data:/root/.tmkms
+
   node:
     container_name: node
-    image: ghcr.io/product-science/inferenced:0.0.2-alpha5
+    image: ghcr.io/product-science/inferenced:0.1.0
     command: ["sh", "./init-docker.sh"]
     volumes:
       - .inference:/root/.inference
@@ -14,15 +23,21 @@ services:
       - CONFIG_p2p__allow_duplicate_ip=true
       - CONFIG_p2p__handshake_timeout=30s
       - CONFIG_p2p__dial_timeout=30s
+      - TKMS_PORT=${TKMS_PORT:-26658}
     ports:
       - "5000:26656" #p2p
       - "26657:26657" #rpc
+    expose:
+      - "${TKMS_PORT:-26658}"
+    depends_on:
+      - tmkms
+
   api:
     container_name: api
-    image: ghcr.io/product-science/api:0.0.2-alpha5
+    image: ghcr.io/product-science/api:0.1.0
     volumes:
       - .inference:/root/.inference
-      - ./node-config.json:/root/node_config.json
+      - ${NODE_CONFIG:-./node-config.json}:/root/node_config.json
     depends_on:
       - node
     environment:
@@ -33,8 +48,13 @@ services:
       - DAPI_CHAIN_NODE__URL=${DAPI_CHAIN_NODE__URL}
       - DAPI_CHAIN_NODE__P2P_URL=${DAPI_CHAIN_NODE__P2P_URL}
       - NODE_CONFIG_PATH=/root/node_config.json
+      - DAPI_API__PUBLIC_SERVER_PORT=9000
+      - DAPI_API__ML_SERVER_PORT=9100
+      - DAPI_API__ADMIN_SERVER_PORT=9200
     ports:
-      - "${PORT:-8000}:8080"
+      - "${API_PORT}:9000"
+      - "9100:9100"
+      - "9200:9200"
     restart: always
 
   inference:
@@ -62,3 +82,6 @@ services:
       - "8080:8080"
       - "5000:5000"
     restart: always
+
+volumes:
+  tmkms_data:
