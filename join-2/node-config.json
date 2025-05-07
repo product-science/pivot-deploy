@@ -1,18 +1,13 @@
 [
   {
     "id": "node1",
-    "host": "inference",
+    "host": "172.18.114.144",
     "inference_port": 5000,
     "poc_port": 8080,
     "max_concurrent": 500,
-    "models": {
-      "Qwen/Qwen2.5-7B-Instruct": {
-        "args": [
-          "--quantization",
-          "fp8"
-        ]
-      }
-    },
+    "models": [
+      "unsloth/llama-3-8b-Instruct"
+    ],
     "hardware": [
       {
         "type": "3090",
