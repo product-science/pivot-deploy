@@ -31,6 +31,7 @@ services:
       - "${TKMS_PORT:-26658}"
     depends_on:
       - tmkms
+    restart: always
 
   api:
     container_name: api
