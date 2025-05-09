@@ -1,6 +1,6 @@
 services:
   inference-node:
-    image: ghcr.io/product-science/mlnode:3.0.1-alpha1
+    image: ghcr.io/product-science/mlnode:3.0.4-alpha2
     volumes:
       - ${HOME}/cache:/root/.cache
     environment:
