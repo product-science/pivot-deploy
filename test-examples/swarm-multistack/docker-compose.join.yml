@@ -70,7 +70,7 @@ services:
   # Join Inference
   ########################################################################
   inference:
-    image: 172.18.114.101:5556/decentralized-ai/mlnode:3.0.4-alpha2
+    image: 172.18.114.101:5556/decentralized-ai/mlnode:3.0.1-alpha1
     command: >
       uvicorn api.app:app
       --host=0.0.0.0
