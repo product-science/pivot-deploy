@@ -1,21 +1,23 @@
 services:
-  inference-node:
+  inference:
     image: ghcr.io/product-science/mlnode:3.0.4-alpha2
     volumes:
-      - ${HOME}/cache:/root/.cache
+      - ${HF_HOME:-${HOME}/cache}:/root/.cache
     environment:
       - HF_HOME=/root/.cache
       - HF_HUB_ENABLE_HF_TRANSFER=true
     ports:
-      - "${PORT:-8000}:8080" # PoC port
-      - "5000:5000" # inference port
+      - "${PORT:-8000}:8080"
+      - "5000:5000"
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
               count: all
-              capabilities: [ gpu ]
+              capabilities: [gpu]
+
+    ipc: host
     command: >
       uvicorn api.app:app
       --host=0.0.0.0
