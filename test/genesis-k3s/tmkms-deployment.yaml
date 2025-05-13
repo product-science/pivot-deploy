@@ -18,6 +18,13 @@ spec:
         kubernetes.io/hostname: k8s-worker-1
       imagePullSecrets:
       - name: ghcr-credentials
+      initContainers:
+      - name: init-permissions-tmkms
+        image: busybox
+        command: ['sh', '-c', 'chmod -R 777 /data_for_tmkms || true']
+        volumeMounts:
+        - name: tmkms-data
+          mountPath: /data_for_tmkms
       containers:
       - name: tmkms
         image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.2
