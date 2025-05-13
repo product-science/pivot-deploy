@@ -14,12 +14,21 @@ This directory contains Kubernetes manifests for deploying the Genesis Node on a
    - Copying `/etc/rancher/k3s/k3s.yaml` from control-plane to `~/.kube/config` locally, or
    - Setting up an SSH tunnel (see Appendix)
 
-2. **Deploy the Genesis Node**:
+2. **Set up GitHub Container Registry authentication**:
+   ```bash
+   kubectl create secret docker-registry ghcr-credentials \
+     --docker-server=ghcr.io \
+     --docker-username=YOUR_GITHUB_USERNAME \
+     --docker-password=YOUR_GITHUB_TOKEN
+   ```
+   Replace `YOUR_GITHUB_USERNAME` with your GitHub username and `YOUR_GITHUB_TOKEN` with a Personal Access Token that has `read:packages` permission.
+
+3. **Deploy the Genesis Node**:
    ```bash
    kubectl apply -f .
    ```
 
-3. **Verify deployment**:
+4. **Verify deployment**:
    ```bash
    kubectl get pods
    ```
