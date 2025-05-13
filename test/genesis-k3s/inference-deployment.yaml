@@ -17,6 +17,8 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: k8s-worker-1
       hostIPC: true
+      imagePullSecrets:
+      - name: ghcr-credentials
       containers:
       - name: inference
         image: ghcr.io/product-science/mlnode:3.0.4-alpha2

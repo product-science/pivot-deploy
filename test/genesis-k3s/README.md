@@ -87,4 +87,4 @@ pgrep -f 'ssh.*-L 6443:127.0.0.1:6443' > /dev/null && echo "Tunnel ACTIVE" || ec
 pkill -f 'ssh.*-L 6443:127.0.0.1:6443'
 ```
 
-Update your kubeconfig's server field to: `https://127.0.0.1:6443` 
+Update your kubeconfig's server field to: `https://127.0.0.1:6443`
