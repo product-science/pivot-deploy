@@ -21,7 +21,7 @@ spec:
       initContainers:
       - name: init-permissions-tmkms
         image: busybox
-        command: ['sh', '-c', 'chmod -R 777 /data_for_tmkms || true']
+        command: ['sh', '-c', 'chmod -R 777 /data_for_tmkms && ls -la /data_for_tmkms && echo "Permissions set and listed" || ls -la /data_for_tmkms && echo "Chmod failed, listing permissions anyway" && exit 1']
         volumeMounts:
         - name: tmkms-data
           mountPath: /data_for_tmkms
