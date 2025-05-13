@@ -12,12 +12,12 @@ spec:
   - name: public
     port: 9000
     targetPort: 9000
-    nodePort: 30002 # Mapped from 8000 in Docker Compose
+    nodePort: 30002
   - name: ml-server
     port: 9100
     targetPort: 9100
-    nodePort: 30003 # Mapped from 9100 in Docker Compose
+    nodePort: 30003
   - name: admin
     port: 9200
     targetPort: 9200
-    nodePort: 30004 # Mapped from 9200 in Docker Compose 
+    nodePort: 30004

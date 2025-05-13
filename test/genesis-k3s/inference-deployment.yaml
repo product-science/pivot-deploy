@@ -43,4 +43,4 @@ spec:
       - name: cache
         hostPath:
           path: /mnt/shared
-          type: DirectoryOrCreate 
+          type: DirectoryOrCreate

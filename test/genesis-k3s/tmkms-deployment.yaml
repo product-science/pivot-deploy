@@ -29,4 +29,4 @@ spec:
       - name: tmkms-data
         hostPath:
           path: /srv/dai/tmkms_data # Path on k8s-worker-1 for tmkms data
-          type: DirectoryOrCreate 
+          type: DirectoryOrCreate

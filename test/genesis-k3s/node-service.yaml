@@ -12,11 +12,11 @@ spec:
   - name: rpc
     port: 26656
     targetPort: 26656
-    nodePort: 30000 # Mapped from 5000 in Docker Compose, NodePort range is 30000-32767
+    nodePort: 30000
   - name: p2p
     port: 26657
     targetPort: 26657
-    nodePort: 30001 # Mapped from 26657 in Docker Compose
+    nodePort: 30001
   - name: tmkms
     port: 26658
     targetPort: 26658

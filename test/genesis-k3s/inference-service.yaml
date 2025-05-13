@@ -11,4 +11,4 @@ spec:
   ports:
   - name: inference-api
     port: 8080
-    targetPort: 8080 
+    targetPort: 8080
