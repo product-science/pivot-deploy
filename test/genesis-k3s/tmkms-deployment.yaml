@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tmkms
+  labels:
+    app: tmkms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tmkms
+  template:
+    metadata:
+      labels:
+        app: tmkms
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: k8s-worker-1
+      containers:
+      - name: tmkms
+        image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.2
+        env:
+        - name: VALIDATOR_LISTEN_ADDRESS
+          value: "tcp://node:26658" # Assumes 'node' service DNS resolves to the node StatefulSet
+        volumeMounts:
+        - name: tmkms-data
+          mountPath: /root/.tmkms
+      volumes:
+      - name: tmkms-data
+        hostPath:
+          path: /srv/dai/tmkms_data # Path on k8s-worker-1 for tmkms data
+          type: DirectoryOrCreate 
