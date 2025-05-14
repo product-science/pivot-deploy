@@ -28,6 +28,8 @@ spec:
           name: rpc
         - containerPort: 26657
           name: p2p
+        - containerPort: 26658
+          name: tmkms
         env:
         - name: KEY_NAME
           value: "genesis"
@@ -52,6 +54,8 @@ spec:
           value: "true"
         - name: TGBOT_PRIVATE_KEY_PASS
           value: "defaultpassword"
+        - name: TMKMS_PORT
+          value: "26658"
         volumeMounts:
         - name: data
           mountPath: /root/.inference

@@ -1,0 +1,69 @@
+# 1️⃣ Storage: one-gig PVC that binds to the default StorageClass
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tmkms-pvc
+spec:
+  accessModes: ["ReadWriteOnce"]          # one writer, many readers on same node
+  resources:
+    requests:
+      storage: 1Gi
+  # storageClassName: ""                  # omit → use cluster default
+  # Optional: let the PV survive even if someone deletes the PVC
+  # volumeMode: Filesystem
+---
+# 2️⃣ Workload: Deployment with an idempotent init-container
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tmkms
+  labels:
+    app: tmkms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tmkms
+  template:
+    metadata:
+      labels:
+        app: tmkms
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: k8s-worker-1
+      imagePullSecrets:
+      - name: ghcr-credentials
+      initContainers:
+      - name: seed-tmkms
+        image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.2
+        command:
+          - /bin/sh
+          - -c
+          - |
+            set -e
+            if [ -f /data/config.toml ]; then
+              echo "PVC already initialised – skipping copy"
+            else
+              echo "Initialising PVC with bundled keys"
+              cp -a /root/.tmkms/. /data/
+            fi
+        volumeMounts:
+        - name: tmkms-data
+          mountPath: /data
+
+      containers:
+      - name: tmkms
+        image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.2
+        command:
+        - /root/init.sh
+        env:
+        - name: VALIDATOR_LISTEN_ADDRESS
+          value: "tcp://node:26658"
+        volumeMounts:
+        - name: tmkms-data
+          mountPath: /root/.tmkms
+
+      volumes:
+      - name: tmkms-data
+        persistentVolumeClaim:
+          claimName: tmkms-pvc
