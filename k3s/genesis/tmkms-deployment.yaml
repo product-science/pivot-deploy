@@ -28,6 +28,8 @@ spec:
       containers:
       - name: tmkms
         image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.2
+        command:
+          - /root/init.sh
         env:
         - name: VALIDATOR_LISTEN_ADDRESS
           value: "tcp://node:26658" # Assumes 'node' service DNS resolves to the node StatefulSet
