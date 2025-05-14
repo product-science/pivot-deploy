@@ -45,9 +45,10 @@ spec:
         - name: node-config-volume
           mountPath: /etc/node-config # Mount dir for node-config.json
       volumes:
-      - name: inference-data # This volume is defined by the PVC
-        persistentVolumeClaim:
-          claimName: inference-data-pvc
+      - name: inference-data # This volume is now a hostPath
+        hostPath:
+          path: /srv/dai/inference # Matches genesis setup
+          type: DirectoryOrCreate
       - name: node-config-volume
         configMap:
           name: join-node-settings # From join-node-config-configmap.template.yaml

@@ -44,9 +44,10 @@ spec:
           mountPath: /etc/node-config # Mount directory
           readOnly: true
       volumes:
-      - name: inference-data
-        persistentVolumeClaim:
-          claimName: inference-data-pvc
+      - name: inference-data # This volume is now a hostPath
+        hostPath:
+          path: /srv/dai/inference # Matches genesis setup
+          type: DirectoryOrCreate
       - name: node-config-volume
         configMap:
           name: join-node-settings # Contains node-config.json
