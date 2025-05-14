@@ -18,18 +18,11 @@ spec:
         kubernetes.io/hostname: k8s-worker-1
       imagePullSecrets:
       - name: ghcr-credentials
-      initContainers:
-      - name: init-permissions-tmkms
-        image: busybox
-        command: ['sh', '-c', 'set -e; chmod -R 777 /data_for_tmkms; echo "Attempted chmod. Current permissions for /data_for_tmkms:"; ls -la /data_for_tmkms; echo "Listing contents of /data_for_tmkms:"; ls -la /data_for_tmkms/* /data_for_tmkms/.* 2>/dev/null || true; echo "Init container completed."']
-        volumeMounts:
-        - name: tmkms-data
-          mountPath: /data_for_tmkms
       containers:
       - name: tmkms
         image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.2
         command:
-          - /root/init.sh
+        - /root/init.sh
         env:
         - name: VALIDATOR_LISTEN_ADDRESS
           value: "tcp://node:26658" # Assumes 'node' service DNS resolves to the node StatefulSet
