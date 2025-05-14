@@ -26,9 +26,9 @@ spec:
         command: ["sh", "./init-docker-genesis.sh"]
         ports:
         - containerPort: 26656
-          name: rpc
+          name: tendermint-p2p
         - containerPort: 26657
-          name: p2p
+          name: tendermint-rpc
         - containerPort: 26658
           name: tmkms
         env:

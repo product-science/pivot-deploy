@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: config
 data:
-  DAPI_API_PUBLIC_URL: "http://34.9.136.116:30002"
+  DAPI_API_PUBLIC_URL: "http://34.9.136.116:30000"
   P2P_EXTERNAL_ADDRESS: "tcp://34.9.136.116:30001"

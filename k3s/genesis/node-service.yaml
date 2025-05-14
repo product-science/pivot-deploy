@@ -9,11 +9,11 @@ spec:
   selector:
     app: node
   ports:
-  - name: rpc
+  - name: tendermint-p2p
     port: 26656
     targetPort: 26656
-    nodePort: 30000
-  - name: p2p
+    nodePort: 30001
+  - name: tendermint-rpc
     port: 26657
     targetPort: 26657
-    nodePort: 30001
+    nodePort: 30002
