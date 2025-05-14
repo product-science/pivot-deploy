@@ -3,7 +3,6 @@ kind: Kustomization
 
 resources:
   - tmkms-pvc.yaml
-  # inference-data-pvc.yaml was removed, using hostPath instead
   - tmkms-deployment.yaml
   - node-statefulset.yaml
   - node-service.yaml
@@ -14,4 +13,4 @@ resources:
 
 # The actual ConfigMaps (join-node-settings and join-node-overrides)
 # will be provided by the overlays, not from the base templates.
-# The .template.yaml files in this directory are for user reference only. 
+# The .template.yaml files in this directory are for user reference only.
