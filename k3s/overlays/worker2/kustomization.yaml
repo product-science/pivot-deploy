@@ -1,0 +1,57 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - ../../join # Points to the k3s/join directory as the base
+
+# Worker-specific ConfigMaps that you will create in this directory
+# by copying and filling the templates from the base.
+resources:
+  - worker2-node-config.yaml   # You will create this file
+  - worker2-overrides.yaml     # You will create this file
+
+patchesStrategicMerge:
+  - |- # Patch for Node StatefulSet
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      name: node
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            kubernetes.io/hostname: k8s-worker-2
+
+  - |- # Patch for Inference Deployment
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: inference
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            kubernetes.io/hostname: k8s-worker-2
+
+# To also pin TMKMS and API deployments to k8s-worker-2, add similar patches:
+#  - |-
+#    apiVersion: apps/v1
+#    kind: Deployment
+#    metadata:
+#      name: tmkms
+#    spec:
+#      template:
+#        spec:
+#          nodeSelector:
+#            kubernetes.io/hostname: k8s-worker-2
+#
+#  - |-
+#    apiVersion: apps/v1
+#    kind: Deployment
+#    metadata:
+#      name: api
+#    spec:
+#      template:
+#        spec:
+#          nodeSelector:
+#            kubernetes.io/hostname: k8s-worker-2 

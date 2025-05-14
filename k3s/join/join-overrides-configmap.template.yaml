@@ -13,7 +13,7 @@ data:
   NODE_CONFIG: "/etc/node-config/node-config.json" # Path where node-config.json will be mounted from the other ConfigMap
   HF_HOME: "/mnt/shared" # Matches genesis and docker-compose intent
 
-  # These seem like global values, but can be overridden per worker if needed
+  # Identical for all join workers
   SEED_API_URL: "http://36.189.234.237:19250"
   SEED_NODE_RPC_URL: "http://172.18.114.125:26657"
   SEED_NODE_P2P_URL: "tcp://36.189.234.237:19249" # Make sure genesis node p2p is reachable at this address
@@ -39,7 +39,3 @@ data:
   DAPI_API__PUBLIC_SERVER_PORT: "9000" # Internal port for API service, API_PORT is for host exposure
   DAPI_API__ML_SERVER_PORT: "9100"
   DAPI_API__ADMIN_SERVER_PORT: "9200"
-
-  # Additional for Inference service from docker-compose
-  # HF_HOME is already defined
-  HF_HUB_ENABLE_HF_TRANSFER: "true"

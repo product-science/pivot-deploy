@@ -33,18 +33,16 @@ spec:
         - "--port=8080"
         ports:
         - containerPort: 8080
-          name: inference-api
-        # Port 5000 was also in genesis inference deployment, let's include it for consistency.
-        # If not used by join node's inference, it can be removed.
+          name: poc-api
         - containerPort: 5000
-          name: poc-api # Matches genesis deployment, role might be different for join node config
-        envFrom:
-        - configMapRef:
-            name: join-node-overrides # For HF_HOME, HF_HUB_ENABLE_HF_TRANSFER
+          name: inference-api
         env:
-        # VLLM_ATTENTION_BACKEND was in genesis, add it here if still applicable
-        # - name: VLLM_ATTENTION_BACKEND
-        #   value: "FLASHINFER"
+        - name: HF_HOME
+          value: "/root/.cache"
+        - name: HF_HUB_ENABLE_HF_TRANSFER
+          value: "true"
+        - name: VLLM_ATTENTION_BACKEND
+          value: "FLASHINFER"
         resources:
           limits:
             nvidia.com/gpu: "1" # Request 1 GPU
