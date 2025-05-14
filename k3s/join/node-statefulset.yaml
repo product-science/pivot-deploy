@@ -2,11 +2,12 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: node
+  # namespace: <WORKER_NAMESPACE>
   labels:
     app: node
 spec:
   serviceName: "node"
-  replicas: 1
+  replicas: 1 # Typically 1 for a specific join node identity
   selector:
     matchLabels:
       app: node
@@ -15,59 +16,41 @@ spec:
       labels:
         app: node
     spec:
-      enableServiceLinks: false # Prevent k8s from propagating vars like {SERVICE_NAME}_PORT inside the container
+      enableServiceLinks: false
       nodeSelector:
-        kubernetes.io/hostname: k8s-worker-1 # TODO: change!
-      imagePullSecrets:
-      - name: ghcr-credentials
+        # kubernetes.io/hostname: <WORKER_NODE_HOSTNAME> # e.g., k8s-worker-2 - UNCOMMENT AND SET THIS
+      # imagePullSecrets: # Add if your image is in a private registry
+      # - name: ghcr-credentials
       containers:
       - name: node
         image: ghcr.io/product-science/inferenced:0.1.2
-        command: ["sh", "./init-docker-genesis.sh"]
+        imagePullPolicy: IfNotPresent
+        command:
+        - "sh"
+        - "-c"
+        - "./init-docker.sh" # Assuming this script is in the image's WORKDIR/PATH
         ports:
         - containerPort: 26656
-          name: tendermint-p2p
+          name: p2p
         - containerPort: 26657
-          name: tendermint-rpc
+          name: rpc
         - containerPort: 26658
-          name: tmkms
-        env:
-        - name: KEY_NAME
-          value: "genesis"
-        - name: SNAPSHOT_INTERVAL
-          value: "1000"
-        - name: SNAPSHOT_KEEP_RECENT
-          value: "5"
-        - name: NODE_CONFIG_PATH
-          value: "/root/node_config.json"
-        - name: P2P_EXTERNAL_ADDRESS
-          valueFrom:
-            configMapKeyRef:
-              name: config
-              key: P2P_EXTERNAL_ADDRESS
-        - name: CONFIG_p2p__allow_duplicate_ip
-          value: "true"
-        - name: CONFIG_p2p__handshake_timeout
-          value: "30s"
-        - name: CONFIG_p2p__dial_timeout
-          value: "30s"
-        - name: INIT_TGBOT
-          value: "true"
-        - name: TGBOT_PRIVATE_KEY_PASS
-          value: "defaultpassword"
-        - name: TMKMS_PORT
-          value: "26658"
+          name: tmkms # Port the node listens on for TMKMS connections
+        envFrom:
+        - configMapRef:
+            name: join-node-overrides # From join-overrides-configmap.template.yaml
         volumeMounts:
-        - name: data
-          mountPath: /root/.inference
-        - name: genesis-overrides
-          mountPath: /root/genesis_overrides.json
-          subPath: genesis_overrides.json
+        - name: inference-data
+          mountPath: /root/.inference # Shared data with API
+        - name: node-config-volume
+          mountPath: /etc/node-config # Mount dir for node-config.json
       volumes:
-      - name: data
-        hostPath:
-          path: /srv/dai/inference
-          type: DirectoryOrCreate
-      - name: genesis-overrides
+      - name: inference-data # This volume is defined by the PVC
+        persistentVolumeClaim:
+          claimName: inference-data-pvc
+      - name: node-config-volume
         configMap:
-          name: genesis-overrides-cm
+          name: join-node-settings # From join-node-config-configmap.template.yaml
+          items:
+          - key: node-config.json
+            path: node-config.json

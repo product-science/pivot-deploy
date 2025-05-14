@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  # namespace: <WORKER_NAMESPACE>
+  labels:
+    app: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      enableServiceLinks: false
+      # imagePullSecrets: # Add if your image is in a private registry
+      # - name: ghcr-credentials
+      # nodeSelector: # Optional: Pin to a specific worker if needed
+        # kubernetes.io/hostname: <WORKER_NODE_HOSTNAME>
+      containers:
+      - name: api
+        image: ghcr.io/product-science/api:0.1.2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9000
+          name: public-api
+        - containerPort: 9100
+          name: ml-api
+        - containerPort: 9200
+          name: admin-api
+        envFrom:
+        - configMapRef:
+            name: join-node-overrides # General env vars
+        env:
+        - name: NODE_CONFIG_PATH # Override specifically for the API pod to point to the mounted config
+          value: "/etc/node-config/node-config.json"
+        volumeMounts:
+        - name: inference-data
+          mountPath: /root/.inference # Shared data with node
+        - name: node-config-volume # Mount the node-config.json from the CM
+          mountPath: /etc/node-config # Mount directory
+          readOnly: true
+      volumes:
+      - name: inference-data
+        persistentVolumeClaim:
+          claimName: inference-data-pvc
+      - name: node-config-volume
+        configMap:
+          name: join-node-settings # Contains node-config.json
+          items:
+          - key: node-config.json
+            path: node-config.json

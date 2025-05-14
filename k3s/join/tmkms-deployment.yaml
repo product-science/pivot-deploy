@@ -17,6 +17,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tmkms
+  # namespace: <WORKER_NAMESPACE> # Will be applied with -n flag
   labels:
     app: tmkms
 spec:
@@ -29,42 +30,29 @@ spec:
       labels:
         app: tmkms
     spec:
-      enableServiceLinks: false # Prevent k8s from propagating vars like {SERVICE_NAME}_PORT inside the container
-      nodeSelector:
-        kubernetes.io/hostname: k8s-worker-1 # TODO: change!
-      imagePullSecrets:
-      - name: ghcr-credentials
-      initContainers:
-      - name: seed-tmkms
-        image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.2
-        command:
-          - /bin/sh
-          - -c
-          - |
-            set -e
-            if [ -f /data/config.toml ]; then
-              echo "PVC already initialised – skipping copy"
-            else
-              echo "Initialising PVC with bundled keys"
-              cp -a /root/.tmkms/. /data/
-            fi
-        volumeMounts:
-        - name: tmkms-data
-          mountPath: /data
-
+      enableServiceLinks: false
+      # imagePullSecrets: # Add if your image is in a private registry
+      # - name: ghcr-credentials
       containers:
       - name: tmkms
         image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.2
-        command:
-        - /root/init.sh
+        imagePullPolicy: IfNotPresent
         env:
         - name: VALIDATOR_LISTEN_ADDRESS
-          value: "tcp://node:26658"
+          value: "tcp://node:26658" # Assumes node service is named 'node' and exposes port 26658 for tmkms
+        # Add other TMKMS specific environment variables if needed from a ConfigMap
+        # envFrom:
+        # - configMapRef:
+        # name: join-node-overrides
+        ports:
+        - containerPort: 26658 # Though tmkms connects out, its good practice to declare if it also listens on a port, even if not exposed via service
+                               # The docker-compose doesn't explicitly expose a port for tmkms itself.
         volumeMounts:
         - name: tmkms-data
           mountPath: /root/.tmkms
-
       volumes:
       - name: tmkms-data
         persistentVolumeClaim:
           claimName: tmkms-pvc
+      # nodeSelector: # Usually TMKMS runs alongside its node. Add if you want to pin it.
+        # kubernetes.io/hostname: <WORKER_NODE_HOSTNAME> # e.g., k8s-worker-2
