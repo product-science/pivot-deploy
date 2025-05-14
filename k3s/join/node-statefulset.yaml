@@ -15,8 +15,9 @@ spec:
       labels:
         app: node
     spec:
+      enableServiceLinks: false # Prevent k8s from propagating vars like {SERVICE_NAME}_PORT inside the container
       nodeSelector:
-        kubernetes.io/hostname: k8s-worker-1
+        kubernetes.io/hostname: k8s-worker-1 # TODO: change!
       imagePullSecrets:
       - name: ghcr-credentials
       containers:
