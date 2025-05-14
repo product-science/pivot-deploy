@@ -30,6 +30,8 @@ spec:
         - --port=8080
         ports:
         - containerPort: 8080
+          name: poc-api
+        - containerPort: 5000
           name: inference-api
         env:
         - name: HF_HOME

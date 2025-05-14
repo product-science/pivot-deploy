@@ -9,6 +9,9 @@ spec:
   selector:
     app: inference
   ports:
-  - name: inference-api
+  - name: poc-api
     port: 8080
     targetPort: 8080
+  - name: inference-api
+    port: 5000
+    targetPort: 5000
