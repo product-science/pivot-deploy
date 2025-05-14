@@ -81,6 +81,7 @@ services:
       --port=8080
     environment:
       - HF_HOME=/root/.cache
+      - VLLM_ATTENTION_BACKEND=FLASHINFER
     volumes:
       - type: bind
         source: /home/gm/cache

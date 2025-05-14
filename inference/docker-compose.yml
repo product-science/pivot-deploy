@@ -5,7 +5,7 @@ services:
       - ${HF_HOME:-${HOME}/cache}:/root/.cache
     environment:
       - HF_HOME=/root/.cache
-      - HF_HUB_ENABLE_HF_TRANSFER=true
+      - VLLM_ATTENTION_BACKEND=FLASHINFER
     ports:
       - "${PORT:-8000}:8080"
       - "5000:5000"
