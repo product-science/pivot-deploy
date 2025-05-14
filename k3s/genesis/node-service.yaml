@@ -12,8 +12,8 @@ spec:
   - name: tendermint-p2p
     port: 26656
     targetPort: 26656
-    nodePort: 30001
+    nodePort: 30001 # Expose to the outer world
   - name: tendermint-rpc
     port: 26657
     targetPort: 26657
-    nodePort: 30002
+    nodePort: 30002 # Expose to the outer world
