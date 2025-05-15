@@ -1,23 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-bases:
-  - ../common # Include all common resources from k3s/common/kustomization.yaml
-
 resources:
-  # Base join workloads (will be further customized by overlays)
+  - ../common
+
   - tmkms-pvc.yaml
   - tmkms-deployment.yaml
   - node-statefulset.yaml
-  # node-service.yaml is now in common
   - api-deployment.yaml
-  # api-services are now in common
   - inference-deployment.yaml
-  # inference-service.yaml is now in common
-  # tmkms-service.yaml is now in common
-
-# Note: The actual ConfigMaps for join nodes (join-node-settings, join-node-overrides)
-# are NOT listed here. They are provided by the overlays (e.g., k3s/overlays/worker2/)
-# as they are worker-specific.
-# The ConfigMap templates in k3s/common/node-configs/ (like join-node-config-configmap.template.yaml)
-# are for user reference to create the actual ConfigMaps in overlays.

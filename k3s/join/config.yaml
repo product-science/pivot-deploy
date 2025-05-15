@@ -6,12 +6,11 @@ data:
   # Replace <...> placeholders with actual values for each worker
   # From config.env.template
   KEY_NAME: "<FILL_IN_KEY_NAME>"
-  API_PORT: "<REPLACE_WITH_WORKER_API_PORT>" # e.g., "8001" for worker 2, "8002" for worker 3
   PUBLIC_URL: "http://<REPLACE_WITH_WORKER_PUBLIC_IP_OR_DNS>:<REPLACE_WITH_WORKER_API_PORT>"
   P2P_EXTERNAL_ADDRESS: "tcp://<REPLACE_WITH_WORKER_PUBLIC_IP_OR_DNS>:<REPLACE_WITH_WORKER_P2P_PORT>" # e.g., port 5000
-  NODE_CONFIG: "/etc/node-config/node-config.json" # Path where node-config.json will be mounted from the other ConfigMap
 
   # Identical for all join workers
+  NODE_CONFIG: "/etc/node-config/node-config.json" # Path where node-config.json will be mounted from the other ConfigMap
   SEED_API_URL: "http://34.9.136.116:30000"
   SEED_NODE_RPC_URL: "http://34.9.136.116:30002"
   SEED_NODE_P2P_URL: "tcp://34.9.136.116:30001"

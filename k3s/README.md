@@ -1,3 +1,14 @@
+Run genesis node
+
+```bash
+kubectl apply -k k3s/genesis -n genesis
+```
+
+Stop genesis node
+```bash
+kubectl delete all --all -n genesis
+```
+
 ```bash
 NAMESPACE=join-worker2
 kubectl create namespace $NAMESPACE

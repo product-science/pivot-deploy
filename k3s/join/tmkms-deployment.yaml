@@ -23,11 +23,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: VALIDATOR_LISTEN_ADDRESS
-          value: "tcp://node:26658" # Assumes node service is named 'node' and exposes port 26658 for tmkms
-        # Add other TMKMS specific environment variables if needed from a ConfigMap
-        # envFrom:
-        # - configMapRef:
-        # name: join-node-overrides
+          value: "tcp://node:26658"
         ports:
         - containerPort: 26658 # Though tmkms connects out, its good practice to declare if it also listens on a port, even if not exposed via service
                                # The docker-compose doesn't explicitly expose a port for tmkms itself.
@@ -38,5 +34,3 @@ spec:
       - name: tmkms-data
         persistentVolumeClaim:
           claimName: tmkms-pvc
-      # nodeSelector: # Usually TMKMS runs alongside its node. Add if you want to pin it.
-        # kubernetes.io/hostname: <WORKER_NODE_HOSTNAME> # e.g., k8s-worker-2
