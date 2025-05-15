@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api
-  # namespace: <WORKER_NAMESPACE>
   labels:
     app: api
 spec:
@@ -16,10 +15,8 @@ spec:
         app: api
     spec:
       enableServiceLinks: false
-      # imagePullSecrets: # Add if your image is in a private registry
-      # - name: ghcr-credentials
-      # nodeSelector: # Optional: Pin to a specific worker if needed
-        # kubernetes.io/hostname: <WORKER_NODE_HOSTNAME>
+      imagePullSecrets:
+      - name: ghcr-credentials
       containers:
       - name: api
         image: ghcr.io/product-science/api:0.1.2

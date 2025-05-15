@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: inference
-  # namespace: <WORKER_NAMESPACE>
   labels:
     app: inference
 spec:
@@ -16,11 +15,9 @@ spec:
         app: inference
     spec:
       enableServiceLinks: false
-      nodeSelector:
-        # kubernetes.io/hostname: <WORKER_NODE_HOSTNAME> # e.g., k8s-worker-2 - UNCOMMENT AND SET THIS
-      hostIPC: true # Matches genesis
-      # imagePullSecrets: # Add if your image is in a private registry
-      # - name: ghcr-credentials
+      hostIPC: true
+      imagePullSecrets:
+      - name: ghcr-credentials
       containers:
       - name: inference
         image: ghcr.io/product-science/mlnode:3.0.4-alpha2

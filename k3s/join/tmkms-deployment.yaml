@@ -17,7 +17,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tmkms
-  # namespace: <WORKER_NAMESPACE> # Will be applied with -n flag
   labels:
     app: tmkms
 spec:
@@ -31,8 +30,8 @@ spec:
         app: tmkms
     spec:
       enableServiceLinks: false
-      # imagePullSecrets: # Add if your image is in a private registry
-      # - name: ghcr-credentials
+      imagePullSecrets:
+      - name: ghcr-credentials
       containers:
       - name: tmkms
         image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.2

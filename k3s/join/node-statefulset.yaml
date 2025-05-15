@@ -18,9 +18,9 @@ spec:
     spec:
       enableServiceLinks: false
       nodeSelector:
-        # kubernetes.io/hostname: <WORKER_NODE_HOSTNAME> # e.g., k8s-worker-2 - UNCOMMENT AND SET THIS
-      # imagePullSecrets: # Add if your image is in a private registry
-      # - name: ghcr-credentials
+        kubernetes.io/hostname: <WORKER_NODE_HOSTNAME> # e.g., k8s-worker-2 - UNCOMMENT AND SET THIS
+      imagePullSecrets: # Add if your image is in a private registry
+      - name: ghcr-credentials
       containers:
       - name: node
         image: ghcr.io/product-science/inferenced:0.1.2
