@@ -31,11 +31,11 @@ spec:
         - "./init-docker.sh" # Assuming this script is in the image's WORKDIR/PATH
         ports:
         - containerPort: 26656
-          name: p2p
+          name: tendermint-p2p
         - containerPort: 26657
-          name: rpc
+          name: tendermint-rpc
         - containerPort: 26658
-          name: tmkms # Port the node listens on for TMKMS connections
+          name: tmkms
         envFrom:
         - configMapRef:
             name: join-node-overrides # From join-overrides-configmap.template.yaml

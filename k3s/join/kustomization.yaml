@@ -5,11 +5,12 @@ resources:
   - tmkms-pvc.yaml
   - tmkms-deployment.yaml
   - node-statefulset.yaml
-  - node-service.yaml
+  - ../common/node-service.yaml
   - api-deployment.yaml
-  - api-service.yaml
+  - ../common/api-service.yaml
   - inference-deployment.yaml
-  - inference-service.yaml
+  - ../common/inference-service.yaml
+  - ../common/tmkms-service.yaml
 
 # The actual ConfigMaps (join-node-settings and join-node-overrides)
 # will be provided by the overlays, not from the base templates.
