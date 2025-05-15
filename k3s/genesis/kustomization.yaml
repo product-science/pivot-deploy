@@ -13,9 +13,11 @@ resources:
   - inference-deployment.yaml
 
   # Common Services
-  - ../common/api-service.yaml
-  - ../common/node-service.yaml       # Assuming you've moved/created this in common
-  - ../common/inference-service.yaml  # Assuming you've moved/created this in common
+  - ../common/api-internal-service.yaml
+  - ../common/api-external-service.yaml
+  - ../common/node-service.yaml
+  - ../common/inference-service.yaml
+  - ../common/tmkms-service.yaml
 
 # Note: If your genesis deployments/statefulsets have different labels
 # than what the common services select, you might need patches here

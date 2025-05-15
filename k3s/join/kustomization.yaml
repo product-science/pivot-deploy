@@ -7,7 +7,8 @@ resources:
   - node-statefulset.yaml
   - ../common/node-service.yaml
   - api-deployment.yaml
-  - ../common/api-service.yaml
+  - ../common/api-internal-service.yaml
+  - ../common/api-external-service.yaml
   - inference-deployment.yaml
   - ../common/inference-service.yaml
   - ../common/tmkms-service.yaml

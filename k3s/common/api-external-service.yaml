@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-external # Clear name for the external-facing service
+  labels:
+    app: api
+spec:
+  type: NodePort
+  selector:
+    app: api
+  ports:
+  - name: public # Matches the name from your modified common api-service
+    port: 9000
+    targetPort: public-api # Assumes container port in api-deployment is named 'public-api'
+    nodePort: 30000      # Your specified NodePort for external access
