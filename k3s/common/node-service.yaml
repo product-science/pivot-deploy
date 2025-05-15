@@ -5,15 +5,15 @@ metadata:
   labels:
     app: node
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: node
   ports:
   - name: tendermint-p2p
     port: 26656
     targetPort: 26656
+    nodePort: 30001
   - name: tendermint-rpc
     port: 26657
     targetPort: 26657
-  externalIPs:
-  - "34.9.136.116"
+    nodePort: 30002
