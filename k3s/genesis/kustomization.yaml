@@ -13,8 +13,8 @@ resources:
   - inference-deployment.yaml
 
   # Common Services
-  - ../common/api-internal-service.yaml
-  - ../common/api-external-service.yaml
+  - ../common/api-private-service.yaml
+  - ../common/api-public-service.yaml
   - ../common/node-service.yaml
   - ../common/inference-service.yaml
   - ../common/tmkms-service.yaml

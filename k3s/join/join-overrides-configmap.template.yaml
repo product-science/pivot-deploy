@@ -15,7 +15,7 @@ data:
   SEED_API_URL: "http://34.9.136.116:30000"
   SEED_NODE_RPC_URL: "http://34.9.136.116:30002"
   SEED_NODE_P2P_URL: "tcp://34.9.136.116:30001"
-  DAPI_API__POC_CALLBACK_URL: "http://api:9100"
+  DAPI_API__POC_CALLBACK_URL: "http://api-private:9100"
   DAPI_CHAIN_NODE__URL: "http://node:26657"
   DAPI_CHAIN_NODE__P2P_URL: "http://node:26656"
   RPC_SERVER_URL_1: "http://34.9.136.116:30002"

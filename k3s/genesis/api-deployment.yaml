@@ -33,7 +33,7 @@ spec:
         - name: KEY_NAME
           value: "genesis"
         - name: DAPI_API__POC_CALLBACK_URL
-          value: "http://api:9100"
+          value: "http://api-private:9100"
         - name: DAPI_API__PUBLIC_URL
           valueFrom:
             configMapKeyRef:

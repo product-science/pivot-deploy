@@ -2,15 +2,15 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - tmkms-pvc.yaml
-  - tmkms-deployment.yaml
   - node-statefulset.yaml
   - ../common/node-service.yaml
   - api-deployment.yaml
-  - ../common/api-internal-service.yaml
-  - ../common/api-external-service.yaml
+  - ../common/api-private-service.yaml
+  - ../common/api-public-service.yaml
   - inference-deployment.yaml
   - ../common/inference-service.yaml
+  - tmkms-deployment.yaml
+  - tmkms-pvc.yaml
   - ../common/tmkms-service.yaml
 
 # The actual ConfigMaps (join-node-settings and join-node-overrides)
