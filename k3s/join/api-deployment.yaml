@@ -32,14 +32,14 @@ spec:
         - configMapRef:
             name: config
         env:
-        - name: NODE_CONFIG_PATH # Override specifically for the API pod to point to the mounted config
-          value: "/etc/node-config/node-config.json"
+        - name: NODE_CONFIG_PATH
+          value: "/root/node_config.json"
         volumeMounts:
         - name: inference-data
           mountPath: /root/.inference
         - name: node-config
-          mountPath: /etc/node-config
-          readOnly: true
+          mountPath: /root/node_config.json
+          subPath: node_config.json
       volumes:
       - name: inference-data # This volume is now a hostPath
         hostPath:
