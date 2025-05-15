@@ -30,7 +30,7 @@ spec:
           name: admin-api
         envFrom:
         - configMapRef:
-            name: join-node-overrides # General env vars
+            name: config
         env:
         - name: NODE_CONFIG_PATH # Override specifically for the API pod to point to the mounted config
           value: "/etc/node-config/node-config.json"

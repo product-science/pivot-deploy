@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: join-node-overrides
+  name: config
 data:
   # Replace <...> placeholders with actual values for each worker
   # From config.env.template

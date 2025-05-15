@@ -35,7 +35,7 @@ spec:
           name: tmkms
         envFrom:
         - configMapRef:
-            name: join-node-overrides # From join-overrides-configmap.template.yaml
+            name: config
         volumeMounts:
         - name: inference-data
           mountPath: /root/.inference # Shared data with API

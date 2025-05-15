@@ -9,3 +9,4 @@ resources:
   - node-statefulset.yaml
   - api-deployment.yaml
   - inference-deployment.yaml
+  - config.yaml
