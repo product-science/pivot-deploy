@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  # Common services
+  - api-public-service.yaml
+  - api-private-service.yaml
+  - node-service.yaml
+  - inference-service.yaml
+  - tmkms-service.yaml
+
+  # Common ConfigMaps (example, adjust path if needed)
+  - node-configs/node-config-configmap.yaml # This is the one genesis uses from common
+  # If you have other common configmap templates or files that are NOT templates
+  # and should always be included, list them here. 
