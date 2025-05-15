@@ -17,3 +17,6 @@ spec:
     port: 26657
     targetPort: 26657
     nodePort: 30022
+  - name: tmkms
+    port: 26658
+    targetPort: 26658
