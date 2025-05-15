@@ -19,7 +19,7 @@ data:
   DAPI_CHAIN_NODE__P2P_URL: "http://node:26656"
   RPC_SERVER_URL_1: "http://34.9.136.116:30002"
   RPC_SERVER_URL_2: "http://34.9.136.116:30002"
-  # TMKMS_PORT: "26658" # FIXME: is it really needed as an env var?
+  # TMKMS_PORT: "26658"
 
   # Variables from docker-compose for node
   TRUSTED_BLOCK_PERIOD: "2000" # Default from docker-compose
