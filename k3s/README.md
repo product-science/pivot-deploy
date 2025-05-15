@@ -14,6 +14,7 @@ Run join-worker-2
 
 ```bash
 kubectl create namespace join-k8s-worker-2 # if not already created
+
 kubectl apply -k k3s/overlays/join-k8s-worker-2 -n join-k8s-worker-2
 ```
 
