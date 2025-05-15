@@ -5,11 +5,12 @@ metadata:
   labels:
     app: api
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: api
   ports:
   - name: public
     port: 9000
     targetPort: 9000
-    nodePort: 30000 
+  externalIPs:
+  - "34.9.136.116"

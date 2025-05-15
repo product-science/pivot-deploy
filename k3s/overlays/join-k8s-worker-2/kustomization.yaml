@@ -10,3 +10,5 @@ patchesStrategicMerge:
   - api-deployment-patch.yaml
   - inference-deployment-patch.yaml
   - config-patch.yaml
+  - api-public-service-patch.yaml
+  - node-service-patch.yaml
