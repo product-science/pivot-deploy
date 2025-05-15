@@ -20,6 +20,9 @@ kubectl apply -k k3s/overlays/join-k8s-worker-2 -n join-k8s-worker-2
 Stop join-worker-2
 ```bash
 kubectl delete all --all -n join-k8s-worker-2
+
+# To delete pvc
+kubectl delete pvc tmkms-data-pvc -n join-k8s-worker-2
 ```
 
 Run join-worker-3
@@ -32,4 +35,7 @@ kubectl apply -k k3s/overlays/join-k8s-worker-3 -n join-k8s-worker-3
 Stop join-worker-3
 ```bash
 kubectl delete all --all -n join-k8s-worker-3
+
+# To delete pvc
+kubectl delete pvc tmkms-data-pvc -n join-k8s-worker-3
 ```

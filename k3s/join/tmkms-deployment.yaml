@@ -33,4 +33,4 @@ spec:
       volumes:
       - name: tmkms-data
         persistentVolumeClaim:
-          claimName: tmkms-pvc
+          claimName: tmkms-data-pvc

@@ -6,7 +6,7 @@ data:
   # Replace <...> placeholders with actual values for each worker
   # From config.env.template
   KEY_NAME: "<FILL_IN_KEY_NAME>"
-  PUBLIC_URL: "http://<REPLACE_WITH_WORKER_PUBLIC_IP_OR_DNS>:<REPLACE_WITH_WORKER_API_PORT>"
+  DAPI_API_PUBLIC_URL: "http://<REPLACE_WITH_WORKER_PUBLIC_IP_OR_DNS>:<REPLACE_WITH_WORKER_API_PORT>"
   P2P_EXTERNAL_ADDRESS: "tcp://<REPLACE_WITH_WORKER_PUBLIC_IP_OR_DNS>:<REPLACE_WITH_WORKER_P2P_PORT>" # e.g., port 5000
 
   # Identical for all join workers
