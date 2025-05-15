@@ -13,6 +13,9 @@ resources:
   - tmkms-pvc.yaml
   - ../common/tmkms-service.yaml
 
+  # ML node config
+  - ../common/node-configs/node-config-configmap.yaml
+
 # The actual ConfigMaps (join-node-settings and join-node-overrides)
 # will be provided by the overlays, not from the base templates.
 # The .template.yaml files in this directory are for user reference only.

@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   # ConfigMaps specific to Genesis
   - config.yaml
-  - node-config-configmap.yaml
   - genesis-overrides-configmap.yaml
 
   # Workloads specific to Genesis
@@ -19,6 +18,5 @@ resources:
   - ../common/inference-service.yaml
   - ../common/tmkms-service.yaml
 
-# Note: If your genesis deployments/statefulsets have different labels
-# than what the common services select, you might need patches here
-# to align them, or ensure labels are consistent. 
+  # ML node config
+  - ../common/node-configs/node-config-configmap.yaml

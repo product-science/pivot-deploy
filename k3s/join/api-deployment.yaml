@@ -36,18 +36,15 @@ spec:
           value: "/etc/node-config/node-config.json"
         volumeMounts:
         - name: inference-data
-          mountPath: /root/.inference # Shared data with node
-        - name: node-config-volume # Mount the node-config.json from the CM
-          mountPath: /etc/node-config # Mount directory
+          mountPath: /root/.inference
+        - name: node-config
+          mountPath: /etc/node-config
           readOnly: true
       volumes:
       - name: inference-data # This volume is now a hostPath
         hostPath:
           path: /srv/dai/inference # Matches genesis setup
           type: DirectoryOrCreate
-      - name: node-config-volume
+      - name: node-config
         configMap:
-          name: join-node-settings # Contains node-config.json
-          items:
-          - key: node-config.json
-            path: node-config.json
+          name: node-config-cm
