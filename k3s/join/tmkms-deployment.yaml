@@ -17,16 +17,9 @@ spec:
       enableServiceLinks: false
       imagePullSecrets:
       - name: ghcr-credentials
-      initContainers:
-      - name: init-tmkms-data
-        image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.2
-        command: ["sh", "-c", "if [ ! -f /root/stage-dir/config.toml ]; then echo 'Initializing tmkms data volume...'; cp -r /root/.tmkms/. /root/stage-dir/; else echo 'tmkms data volume already initialized.'; fi"]
-        volumeMounts:
-        - name: tmkms-data
-          mountPath: /root/stage-dir
       containers:
       - name: tmkms
-        image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.2
+        image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.3
         imagePullPolicy: IfNotPresent
         env:
         - name: VALIDATOR_LISTEN_ADDRESS
