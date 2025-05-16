@@ -10,15 +10,5 @@ data:
   P2P_EXTERNAL_ADDRESS: "tcp://<REPLACE_WITH_WORKER_PUBLIC_IP_OR_DNS>:<REPLACE_WITH_WORKER_P2P_PORT>" # e.g., port 5000
 
   # Identical for all join workers
-  SEED_NODE_RPC_URL: "http://34.9.136.116:30002"
-  SEED_NODE_P2P_URL: "tcp://34.9.136.116:30001"
-  RPC_SERVER_URL_1: "http://34.9.136.116:30002"
-  RPC_SERVER_URL_2: "http://34.9.136.116:30002"
   TMKMS_PORT: "26658"
-
-  # Variables from docker-compose for node
-  TRUSTED_BLOCK_PERIOD: "2000" # Default from docker-compose
-  CONFIG_p2p__allow_duplicate_ip: "true"
-  CONFIG_p2p__handshake_timeout: "30s"
-  CONFIG_p2p__dial_timeout: "30s"
   TKMS_PORT: "26658" # Port node listens on for TMKMS

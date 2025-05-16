@@ -36,6 +36,27 @@ spec:
         envFrom:
         - configMapRef:
             name: config
+        env:
+        - name: SEED_NODE_RPC_URL
+          value: "http://34.9.136.116:30002"
+        - name: SEED_NODE_P2P_URL
+          value: "tcp://34.9.136.116:30001"
+        - name: RPC_SERVER_URL_1
+          value: "http://34.9.136.116:30002"
+        - name: RPC_SERVER_URL_2
+          value: "http://34.9.136.116:30002"
+        - name: SNAPSHOT_INTERVAL
+          value: "1000"
+        - name: SNAPSHOT_KEEP_RECENT
+          value: "5"
+        - name: TRUSTED_BLOCK_PERIOD
+          value: "2000"
+        - name: CONFIG_p2p__allow_duplicate_ip
+          value: "true"
+        - name: CONFIG_p2p__handshake_timeout
+          value: "30s"
+        - name: CONFIG_p2p__dial_timeout
+          value: "30s"
         volumeMounts:
         - name: inference-data
           mountPath: /root/.inference # Shared data with API
