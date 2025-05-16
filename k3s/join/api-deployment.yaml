@@ -55,9 +55,9 @@ spec:
           mountPath: /root/node_config.json
           subPath: node_config.json
       volumes:
-      - name: inference-data # This volume is now a hostPath
+      - name: inference-data
         hostPath:
-          path: /srv/dai/inference # Matches genesis setup
+          path: /srv/dai/inference
           type: DirectoryOrCreate
       - name: node-config
         configMap:
