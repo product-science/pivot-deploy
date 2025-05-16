@@ -57,6 +57,10 @@ spec:
           value: "30s"
         - name: CONFIG_p2p__dial_timeout
           value: "30s"
+        - name: TKMS_PORT
+          value: "26658"
+        - name: TMKMS_PORT
+          value: "26658"
         volumeMounts:
         - name: inference-data
           mountPath: /root/.inference # Shared data with API
