@@ -1,7 +1,7 @@
 services:
   explorer:
     container_name: explorer
-    image: gcr.io/decentralized-ai/ping-pub-explorer:latest
+    image: gcr.io/decentralized-ai/ping-pub-explorer:ad0fd20b
     environment:
       - API_ENDPOINT=http://node:1317
       - RPC_ENDPOINT=http://node:26657
