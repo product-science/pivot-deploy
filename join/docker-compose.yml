@@ -1,4 +1,14 @@
 services:
+  explorer:
+    container_name: explorer
+    image: gcr.io/decentralized-ai/ping-pub-explorer:latest
+    environment:
+      - API_ENDPOINT=http://node:1317
+      - RPC_ENDPOINT=http://node:26657
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
   tmkms:
     image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.3
     container_name: tmkms
@@ -10,7 +20,7 @@ services:
 
   node:
     container_name: node
-    image: ghcr.io/product-science/inferenced:0.1.3
+    image: gcr.io/decentralized-ai/inferenced:a7c101a0
     command: ["sh", "./init-docker.sh"]
     volumes:
       - .inference:/root/.inference
@@ -26,6 +36,7 @@ services:
       - CONFIG_p2p__handshake_timeout=30s
       - CONFIG_p2p__dial_timeout=30s
       - TMKMS_PORT=${TMKMS_PORT:-26658}
+      - WITH_EXPLORER=true
     ports:
       - "5000:26656" #p2p
       - "26657:26657" #rpc
@@ -37,7 +48,7 @@ services:
 
   api:
     container_name: api
-    image: ghcr.io/product-science/api:0.1.3
+    image: gcr.io/decentralized-ai/api:a7c101a0
     volumes:
       - .inference:/root/.inference
       - ${NODE_CONFIG:-./node-config.json}:/root/node_config.json
@@ -50,6 +61,7 @@ services:
       - DAPI_CHAIN_NODE__SEED_API_URL=${SEED_API_URL}
       - DAPI_CHAIN_NODE__URL=${DAPI_CHAIN_NODE__URL}
       - DAPI_CHAIN_NODE__P2P_URL=${DAPI_CHAIN_NODE__P2P_URL}
+      - DAPI_API__EXPLORER_URL=http://explorer:5173
       - NODE_CONFIG_PATH=/root/node_config.json
       - DAPI_API__PUBLIC_SERVER_PORT=9000
       - DAPI_API__ML_SERVER_PORT=9100
