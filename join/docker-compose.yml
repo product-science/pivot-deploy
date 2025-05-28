@@ -26,6 +26,9 @@ services:
       - CONFIG_p2p__handshake_timeout=30s
       - CONFIG_p2p__dial_timeout=30s
       - TMKMS_PORT=${TMKMS_PORT:-26658}
+      - SYNC_WITH_SNAPSHOTS=true
+      - RPC_SERVER_URL_1=${RPC_SERVER_URL_1}
+      - RPC_SERVER_URL_2=${RPC_SERVER_URL_2}
     ports:
       - "5000:26656" #p2p
       - "26657:26657" #rpc
