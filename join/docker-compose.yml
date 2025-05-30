@@ -42,6 +42,7 @@ services:
     container_name: api
     image: ghcr.io/product-science/api:0.1.6-alpha1
     volumes:
+      - .inference:/root/.inference
       - .dapi:/root/.dapi
       - ${NODE_CONFIG:-./node-config.json}:/root/node_config.json
     depends_on:

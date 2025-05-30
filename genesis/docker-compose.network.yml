@@ -37,6 +37,7 @@ services:
       - DAPI_API__ADMIN_SERVER_PORT=9200
       - NODE_CONFIG_PATH=/root/node_config.json
     volumes:
+      - /srv/dai/inference:/root/.inference
       - /srv/dai/dapi:/root/.dapi
       - ./node-config.json:/root/node_config.json
     ports:
