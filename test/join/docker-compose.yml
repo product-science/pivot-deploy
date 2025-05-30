@@ -1,6 +1,6 @@
 services:
   tmkms:
-    image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.4
+    image: ghcr.io/product-science/tmkms-softsign-with-keygen:0.1.6-alpha1
     container_name: tmkms
     restart: unless-stopped
     environment:
@@ -10,7 +10,7 @@ services:
 
   node:
     container_name: node
-    image: ghcr.io/product-science/inferenced:0.1.4
+    image: ghcr.io/product-science/inferenced:0.1.6-alpha1
     command: ["sh", "./init-docker.sh"]
     volumes:
       - .inference:/root/.inference
@@ -35,7 +35,7 @@ services:
 
   api:
     container_name: api
-    image: ghcr.io/product-science/api:0.1.4
+    image: ghcr.io/product-science/api:0.1.6-alpha1
     volumes:
       - .dapi:/root/.dapi
       - ${NODE_CONFIG:-./node-config.json}:/root/node_config.json
