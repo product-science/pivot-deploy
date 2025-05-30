@@ -60,7 +60,7 @@ services:
     restart: always
 
   inference:
-    image: ghcr.io/product-science/mlnode:3.0.4-alpha2
+    image: ghcr.io/product-science/mlnode:3.0.6
     volumes:
       - ${HF_HOME:-${HOME}/cache}:/root/.cache
     environment:
