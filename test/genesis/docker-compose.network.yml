@@ -1,6 +1,6 @@
 services:
   node:
-    image: ghcr.io/product-science/inferenced:0.1.9
+    image: ghcr.io/product-science/inferenced:0.1.11-alpha1
     restart: always
     command: ["sh", "./init-docker-genesis.sh"]
     environment:
@@ -22,7 +22,7 @@ services:
       - "26657:26657"
 
   api:
-    image: ghcr.io/product-science/api:0.1.9
+    image: ghcr.io/product-science/api:0.1.11-alpha1
     restart: always
     depends_on:
       - node
@@ -46,7 +46,7 @@ services:
       - "9200:9200"
 
   inference:
-    image: ghcr.io/product-science/mlnode:3.0.6
+    image: ghcr.io/product-science/mlnode:3.0.7
     restart: always
     command: >
       uvicorn api.app:app
