@@ -107,7 +107,7 @@ services:
 
   explorer:
     container_name: explorer
-    image: gcr.io/decentralized-ai/ping-pub-explorer:latest
+    image: ghcr.io/product-science/explorer:latest
     expose:
       - "5173"
     restart: unless-stopped
