@@ -84,7 +84,7 @@ services:
 
   proxy:
     container_name: proxy
-    image: ghcr.io/product-science/proxy:0.1.10
+    image: ghcr.io/product-science/proxy:0.1.14
     ports:
       - "${API_PORT:-8000}:80"
     environment:
